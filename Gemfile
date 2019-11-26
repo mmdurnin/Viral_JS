@@ -66,3 +66,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'aws-sdk-s3'
 gem 'activerecord-postgis-adapter'
 gem 'rgeo-geojson'
+gem 'jquery-rails'

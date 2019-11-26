@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Viral</title>
     <%= csrf_meta_tags %>
@@ -7,6 +8,15 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+    <link href="https://fonts.googleapis.com/css?family=Cinzel|Didact+Gothic|Exo+2|News+Cycle|Orbitron|Saira+Condensed&display=swap" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+    <script type="text/javascript">
+      window.icon = "<%= image_url('icon.png')%>"
+    </script>
+
   </head>
 
   <body>
