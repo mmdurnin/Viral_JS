@@ -14,18 +14,31 @@ function makeNav(diseaseNames) {
 
 
 
-    let diseases = []
-    let diseaseLi;
-    let diseaseName;
+    const createDropDown = () => {
+        const filterTitle = document.createElement("h3")
+        filterTitle.innerHTML = "Select filters"
+        nav.appendChild(filterTitle)
 
-    for (let i = 0; i < diseaseNames.length; i++) {
-        diseaseName = diseaseNames[i].name;
-        diseaseLi = document.createElement("li");
-        diseaseLi.innerHTML = diseaseName;
-        diseases.push(diseaseLi)
+        const diseaseForm = document.createElement("form")
+
+        diseaseForm.innerHTML = diseaseNames.map((disease, i) => {
+            return `
+                <li>
+                <input type="checkbox" data-index=${i} />
+                <label for="item${i}">${disease.name}</label>
+                </li>
+            `;
+        }).join('');
+
+        filterTitle.className = "nav-title-conceal"
+        diseaseForm.className = "nav-form-conceal"
+        nav.appendChild(diseaseForm)
+
     }
 
-    console.log(diseases)
+
+
+    createDropDown();
 
     const handleNav = () => {
         console.log("handleNav")
@@ -40,12 +53,24 @@ function makeNav(diseaseNames) {
         navStatus = "open"
         button.innerHTML = "Close"
         nav.className =  "nav-reveal"
+
+        const navTitle = document.querySelector("h3")
+        navTitle.className = "nav-title-reveal"
+
+        const navForm = document.querySelector("form")
+        navForm.className = "nav-form-reveal"
     };
 
     const handleConceal = () => {
         navStatus = "closed"
         button.innerHTML = "Open"
         nav.className = "nav-conceal"
+
+        const navTitle = document.querySelector("h3")
+        navTitle.className = "nav-title-conceal"
+
+        const navForm = document.querySelector("form")
+        navForm.className = "nav-form-conceal"
     }
 
     button.addEventListener("click", handleNav);

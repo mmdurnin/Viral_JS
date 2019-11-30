@@ -7,8 +7,24 @@ function decorateMap(states, map) {
     mapboxgl.accessToken = 'pk.eyJ1IjoibWR1cm5pbiIsImEiOiJjazNjaHkxZjEweXg3M2lvMWtnZDh0M3g5In0.ND3SU3mXL1jlXr5EEWMyug';
     var map = new mapboxgl.Map({
         container: 'mapViralId',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        // style: 'mapbox://styles/mapbox/streets-v11',
+        style: {
+            version: 8,
+            sources: {
+
+            },
+            layers: [
+                {
+                    id: 'background',
+                    type: 'background',
+                    paint: { 'background-color': 'rgb(173,193,217)' }
+                }
+            ]
+
+        },
         center: [-100.486052, 37.830348],
+        // pitch: 45, // pitch in degrees
+        // bearing: 10, // bearing in degrees
         zoom: 3
     });
 
@@ -21,8 +37,7 @@ function decorateMap(states, map) {
             "type": "geojson",
             "data": json
         });
-
-        // map.dragRotate.disable();
+        
 
         map.touchZoomRotate.disableRotation();
 
@@ -32,6 +47,7 @@ function decorateMap(states, map) {
             "source": "states",
             "layout": {},
             "paint": {
+                "fill-color": "#0F1358",
                 "fill-color": "#0F1358",
                 "fill-opacity": ["case",
                     ["boolean", ["feature-state", "hover"], false],
@@ -51,6 +67,7 @@ function decorateMap(states, map) {
                 "line-width": 1
             }
         });
+        
 
         map.on("mousemove", "state-fills", function (e) {
             if (e.features.length > 0) {
@@ -70,3 +87,4 @@ function decorateMap(states, map) {
         })
     })
 }
+
