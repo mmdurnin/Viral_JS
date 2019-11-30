@@ -8,6 +8,7 @@
 
 State.destroy_all
 Disease.destroy_all
+StatePopulation.destroy_all
 
 require "json"
 require 'rgeo/geo_json'
@@ -34,7 +35,7 @@ data["features"].each do |feature|
         polygon = factory.parse_wkt(poly_text)
         state_hash[:geom] = factory.multi_polygon([polygon]).to_s
     else
-        state_hash[:geom] = RGeo::GeoJSON.decode(json).geometry.to_s
+        state_hash[:geom] = RGeo::GeoJSON.decode(json).geometry.to_s #decode json file, turn into object of type RGEO::GeoJSON (from library), accesses geometry part of object, turn into string to store in db
     end
 
     state_arr.push(state_hash)
@@ -44,15 +45,53 @@ State.create(state_arr)
 
 
 
+state_keys = State.all.pluck(:id, :name) #use this for all of the following tables
+
+
+# State Populations
+pops_arr = []
+
+CSV.foreach(Rails.root.join('data/state_pops_1990-2019.csv'), headers: true) do |row|
+    pops_hash = {}
+    id = state_keys.find {|el| el[1] == row["state"]}[0]
+
+    print row["state"] if id == nil 
+
+    pops_hash[:population] = row["population"].delete(",").to_i
+    pops_hash[:year] = row["year"].to_i
+    pops_hash[:state_id] = id
+
+    num_points = pops_hash[:population] / 100000
+
+    json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
+    pops_hash[:geom]= json_points.values[0][0]
+
+    # SQL qeury on states table.  Use method ST_Generate points with args 1. geom (geom column) and 2. num points
+    # ActiveRecord::Base.connection.execute returns an object of type result. Grab info by saying ".values"
+    # It ended up return info double nested (.select returns many rows = 1 level of nesting; .select returns however many things specified (ie columns) = 2nd level of nesting)
+    #   so key in by saying [0][0]
+    # By the way, this will return a really ugly ("encoded") string, which is fine because that's the way it will be stored in the db anyway.
+    #   It is the form that this info is stored in the db. I'll convert it into geojson when I need it.
+
+    pops_arr.push(pops_hash)
+
+end
+
+StatePopulation.create(pops_arr)
+
+
+
+
+
 # Tuberculosis
 
 tb_arr = []
-state_keys = State.select(:id, :name)
 
 CSV.foreach(Rails.root.join('data/tb_state_2000-2017.csv'), headers: true) do |row|
 
     disease_hash = {}
-    id = state_keys.find_by(name: row["Geography"]).id
+
+    id = state_keys.find {|el| el[1] == row["Geography"]}[0]
 
     print row["Geography"] if id == nil 
 
@@ -76,7 +115,7 @@ ch_arr = []
 CSV.foreach(Rails.root.join('data/chlamydia_state_2000-2017.csv'), headers: true) do |row|
 
     disease_hash = {}
-    id = state_keys.find_by(name: row["Geography"]).id
+    id = state_keys.find {|el| el[1] == row["Geography"]}[0]
 
     print row["Geography"] if id == nil
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_045508) do
+ActiveRecord::Schema.define(version: 2019_11_30_194942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,11 +29,26 @@ ActiveRecord::Schema.define(version: 2019_11_26_045508) do
     t.index ["year"], name: "index_diseases_on_year"
   end
 
+  create_table "state_populations", force: :cascade do |t|
+    t.integer "state_id"
+    t.integer "population"
+    t.integer "year"
+    t.geometry "geom", limit: {:srid=>4326, :type=>"multi_point"}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["geom"], name: "index_state_populations_on_geom", using: :gist
+    t.index ["population"], name: "index_state_populations_on_population"
+    t.index ["state_id", "population", "year"], name: "index_state_populations_on_state_id_and_population_and_year", unique: true
+    t.index ["state_id"], name: "index_state_populations_on_state_id"
+    t.index ["year"], name: "index_state_populations_on_year"
+  end
+
   create_table "states", force: :cascade do |t|
     t.string "name", null: false
     t.geometry "geom", limit: {:srid=>4326, :type=>"multi_polygon"}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "((geom)::geography)", name: "disease_rate_idx", using: :gist
     t.index "((geom)::geography)", name: "state_coords_idx", using: :gist
     t.index ["geom"], name: "index_states_on_geom", using: :gist
     t.index ["name"], name: "index_states_on_name"
