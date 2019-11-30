@@ -67,6 +67,7 @@ CSV.foreach(Rails.root.join('data/state_pops_1990-2019.csv'), headers: true) do 
     pops_hash[:geom]= json_points.values[0][0]
 
     # SQL qeury on states table.  Use method ST_Generate points with args 1. geom (geom column) and 2. num points
+    # Generate points takes the state coords, the number of points I want in that state, and generates random points within those confinements!
     # ActiveRecord::Base.connection.execute returns an object of type result. Grab info by saying ".values"
     # It ended up return info double nested (.select returns many rows = 1 level of nesting; .select returns however many things specified (ie columns) = 2nd level of nesting)
     #   so key in by saying [0][0]
