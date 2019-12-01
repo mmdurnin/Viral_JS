@@ -98,60 +98,55 @@ function decorateMap(states, map) {
 
 function populateMap(pops, map) {
 
-    document.getElementById('slider').addEventListener('input', function(e) {
-        var pop_display = e.target.value
+    const json = JSON.parse(JSON.stringify(pops))
 
-        const tb_pops = pops["tb"][`${pop_display}`]
-        const ch_pops = pops["chlamydia"][`${pop_display}`]
+    map.addSource("disease_pops", {
+        "type": "geojson",
+        "data": json
+    });
 
-        const json_tb = JSON.parse(JSON.stringify(tb_pops))
-        const json_ch = JSON.parse(JSON.stringify(ch_pops))
-
-        map.addSource("tb", {
-            "type": "geojson",
-            "data": json_tb
-        })
-
-        map.addSource("ch", {
-            "type": "geojson",
-            "data": json_ch
-        })
-
-
-        map.addLayer({
-            "id": "tb-pop-points",
-            "type": "circle",
-            "source": "tb",
-            "layout": {},
-            "paint": {
-                "circle-color": "rgba(137,0,2,.8)",
-                "circle-radius": {
-                    'base': .5,
-                    'stops': [[4, 2], [11, 7], [16, 16]]
-                }
-            }
-        })
-
-        map.addLayer({
-            "id": "ch-pop-points",
-            "type": "circle",
-            "source": "ch",
-            "layout": {},
-            "paint": {
-                "circle-color": "rgba(255,204,6,.8)",
-                "circle-radius": {
-                    'base': 2,
-                    'stops': [[4, 4], [11, 15], [16, 40]]
-                }
-            }
-        })
+    map.addLayer({
+        "id": "pop-points",
+        "type": "circle",
+        "source": "disease_pops",
+        "layout": {},
+        "paint": {
+            'circle-color': [
+            'match',
+                ['get', 'name'],
+                'tb', '#fbb03b',
+                'chlamydia', '#223b53',
+                '#ccc'
+            ],
+            "circle-radius": [
+                'match',
+                    ['get', 'name'],
+                    'tb', 2,
+                    'chlamydia', 3,
+                    2
+            ]
+        }
     })
 
+    function filterBy(year) {
+        var filters = ['==', 'year', year]
+        map.setFilter('pop-points', filters)
+    }
 
 
-    // const tb_2000 = pops["tb"]["2000"]
-    // const json_tb_2000 = JSON.parse(JSON.stringify(tb_2000))
+    document.getElementById('slider').addEventListener('input', function (e) {
+        var year = parseInt(e.target.value, 10);
+        filterBy(year);
+    });
 
-    // const ch_2000 = pops["chlamydia"]["2000"]
-    // const json_ch_2000 = JSON.parse(JSON.stringify(ch_2000))
+    filterBy(2000)
+
+
+    let ticker_pop = 2000
+    const ticker = document.getElementById('slider');
+    setInterval(function(){
+        if (ticker_pop < 2018) ticker_pop += 1
+        filterBy(ticker_pop);
+        ticker.stepUp();
+    }, 300)
 };
