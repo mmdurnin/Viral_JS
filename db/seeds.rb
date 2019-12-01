@@ -106,7 +106,7 @@ CSV.foreach(Rails.root.join('data/tb_state_2000-2017.csv'), headers: true) do |r
     p row["Geography"] if pop == nil
 
     # num_points = (pop[:population] / 100000) * disease_hash[:rate]
-    num_points = disease_hash[:rate]
+    num_points = disease_hash[:rate].round
     disease_hash[:points] = num_points
     json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
     disease_hash[:geom] = json_points.values[0][0]
@@ -140,7 +140,7 @@ CSV.foreach(Rails.root.join('data/chlamydia_state_2000-2017.csv'), headers: true
     p row["Geography"] if pop == nil
 
     # num_points = ( (pop[:population] / 100000) * disease_hash[:rate] ) / 100
-    num_points = disease_hash[:rate] / 10
+    num_points = (disease_hash[:rate] / 10).round
     disease_hash[:points] = num_points
     json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
     disease_hash[:geom] = json_points.values[0][0]
@@ -176,7 +176,7 @@ CSV.foreach(Rails.root.join('data/hepab_state_2000-2017.csv'), headers: true) do
     p row["Geography"] if pop == nil
 
 
-    num_points = disease_hash[:rate]
+    num_points = disease_hash[:rate].round
     disease_hash[:points] = num_points
     json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
     disease_hash[:geom] = json_points.values[0][0]

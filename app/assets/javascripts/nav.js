@@ -23,15 +23,22 @@ function makeNav(diseaseNames) {
 
         diseaseForm.innerHTML = diseaseNames.map((disease, i) => {
             return `
-                <li>
-                <input type="checkbox" data-index=${i} />
+                <li className="disease-input">
+                <input type="checkbox" value="false" data-index=${i} key=${disease.name} />
                 <label for="item${i}">${disease.name}</label>
                 </li>
             `;
         }).join('');
 
+        const submitFilters = document.createElement("input")
+        submitFilters.className = "submit-filters"
+        submitFilters.id = "submit-filters"
+        submitFilters.type = "submit"
+        diseaseForm.appendChild(submitFilters)
+
         filterTitle.className = "nav-title-conceal"
         diseaseForm.className = "nav-form-conceal"
+        diseaseForm.id = "disease-form"
         nav.appendChild(diseaseForm)
 
     }

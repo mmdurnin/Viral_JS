@@ -116,6 +116,8 @@ function populateMap(pops, map) {
                 ['get', 'name'],
                 'tb', '#fbb03b',
                 'chlamydia', '#223b53',
+                'Hepatitis  A', '#e55e5e',
+                'Acute Viral Hepatitis B', '#3bb2d0',
                 '#ccc'
             ],
             "circle-radius": [
@@ -123,8 +125,19 @@ function populateMap(pops, map) {
                     ['get', 'name'],
                     'tb', 2,
                     'chlamydia', 3,
+                    'Hepatitis  A', 2,
+                    'Acute Viral Hepatitis B', 2,
                     2
             ]
+        }
+    })
+
+    document.getElementById('disease-form').addEventListener("change", function (e) {
+        if (e.target.checked === true) {
+            e.target.value = true
+            console.log(e.target)
+        } else {
+            e.target.value = false
         }
     })
 
@@ -139,14 +152,28 @@ function populateMap(pops, map) {
         filterBy(year);
     });
 
-    filterBy(2000)
+    filterBy(1990);
+    
 
 
-    let ticker_pop = 2000
-    const ticker = document.getElementById('slider');
-    setInterval(function(){
-        if (ticker_pop < 2018) ticker_pop += 1
-        filterBy(ticker_pop);
-        ticker.stepUp();
-    }, 300)
+    document.getElementById('submit-filters').addEventListener('click', function (e) {
+        e.preventDefault();
+        const diseaseFilters = document.querySelectorAll('.disease-input')
+        let filters = []
+        diseaseFilters.forEach((el) => {
+            if (el.value == true) filters.push(`${el.innerHTML}`)
+        })
+        playTimeLapse();
+    })
+
+    function playTimeLapse() {
+        let ticker_pop = 2000
+        const ticker = document.getElementById('slider');
+        setInterval(function () {
+            if (ticker_pop < 2018) ticker_pop += 1
+            filterBy(ticker_pop);
+            ticker.stepUp();
+        }, 85)
+    }
 };
+
