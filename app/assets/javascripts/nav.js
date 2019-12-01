@@ -22,9 +22,11 @@ function makeNav(diseaseNames) {
         const diseaseForm = document.createElement("form")
 
         diseaseForm.innerHTML = diseaseNames.map((disease, i) => {
+            console.log(disease.name)
+            console.log(typeof(disease.name))
             return `
-                <li className="disease-input">
-                <input type="checkbox" value="false" data-index=${i} key=${disease.name} />
+                <li>
+                <input type="checkbox" value="false" className="disease-input" data-index=${i} name=${disease.name} />
                 <label for="item${i}">${disease.name}</label>
                 </li>
             `;
@@ -81,4 +83,6 @@ function makeNav(diseaseNames) {
     }
 
     button.addEventListener("click", handleNav);
+    const submitFilters = document.getElementById("submit-filters")
+    submitFilters.addEventListener("click", handleNav);
 }

@@ -139,41 +139,59 @@ function populateMap(pops, map) {
         } else {
             e.target.value = false
         }
+    });
+
+    let diseaseDisplay = [];
+    document.getElementById('submit-filters').addEventListener('click', function (e) {
+        diseaseDisplay = [];
+        e.preventDefault();
+        const diseaseFilters = document.getElementById('disease-form').elements
+
+        for (let i = 0; i < diseaseFilters.length; i++) {
+            diseaseTemp = diseaseFilters[i]
+            if (diseaseTemp.value === "true") {
+                diseaseDisplay.push(diseaseTemp.name)
+            }
+        }
+        playTimeLapse();
     })
 
-    function filterBy(year) {
-        var filters = ['==', 'year', year]
+    function filterBy(year, diseaseArr) {
+        diseaseArr.unshift('name')
+        diseaseArr.unshift('in')
+        console.log(diseaseArr)
+
+        var filters = ['all', ['==', 'year', year], diseaseArr]
         map.setFilter('pop-points', filters)
+        diseaseArr.shift()
+        diseaseArr.shift()
+        diseaseArr = [];
+
     }
 
 
     document.getElementById('slider').addEventListener('input', function (e) {
         var year = parseInt(e.target.value, 10);
-        filterBy(year);
+        filterBy(year, diseaseDisplay);
     });
 
-    filterBy(1990);
+    filterBy(1990, []);
     
 
-
-    document.getElementById('submit-filters').addEventListener('click', function (e) {
-        e.preventDefault();
-        const diseaseFilters = document.querySelectorAll('.disease-input')
-        let filters = []
-        diseaseFilters.forEach((el) => {
-            if (el.value == true) filters.push(`${el.innerHTML}`)
-        })
-        playTimeLapse();
-    })
-
+    
     function playTimeLapse() {
-        let ticker_pop = 2000
-        const ticker = document.getElementById('slider');
-        setInterval(function () {
-            if (ticker_pop < 2018) ticker_pop += 1
-            filterBy(ticker_pop);
+        console.log(diseaseDisplay)
+        console.log("this is playTimeLapse") 
+        let ticker_pop = 2000; 
+        const keepSpreading = setInterval(function () {
+            const ticker = document.getElementById('slider');
+            ticker_pop += 1
+            filterBy(ticker_pop, diseaseDisplay);
             ticker.stepUp();
-        }, 85)
+            if (ticker_pop > 2017) {
+                clearInterval(keepSpreading)
+            }
+        }, 85);
     }
-};
+}
 
