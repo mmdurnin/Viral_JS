@@ -97,68 +97,61 @@ function decorateMap(states, map) {
 
 
 function populateMap(pops, map) {
-    const tb_2000 = pops["tb"]["2000"]
-    const json_tb_2000 = JSON.parse(JSON.stringify(tb_2000))
 
-    const ch_2000 = pops["chlamydia"]["2000"]
-    const json_ch_2000 = JSON.parse(JSON.stringify(ch_2000))
+    document.getElementById('slider').addEventListener('input', function(e) {
+        var pop_display = e.target.value
 
-    map.addSource("tb", {
-        "type": "geojson",
-        "data": json_tb_2000
+        const tb_pops = pops["tb"][`${pop_display}`]
+        const ch_pops = pops["chlamydia"][`${pop_display}`]
+
+        const json_tb = JSON.parse(JSON.stringify(tb_pops))
+        const json_ch = JSON.parse(JSON.stringify(ch_pops))
+
+        map.addSource("tb", {
+            "type": "geojson",
+            "data": json_tb
+        })
+
+        map.addSource("ch", {
+            "type": "geojson",
+            "data": json_ch
+        })
+
+
+        map.addLayer({
+            "id": "tb-pop-points",
+            "type": "circle",
+            "source": "tb",
+            "layout": {},
+            "paint": {
+                "circle-color": "rgba(137,0,2,.8)",
+                "circle-radius": {
+                    'base': .5,
+                    'stops': [[4, 2], [11, 7], [16, 16]]
+                }
+            }
+        })
+
+        map.addLayer({
+            "id": "ch-pop-points",
+            "type": "circle",
+            "source": "ch",
+            "layout": {},
+            "paint": {
+                "circle-color": "rgba(255,204,6,.8)",
+                "circle-radius": {
+                    'base': 2,
+                    'stops': [[4, 4], [11, 15], [16, 40]]
+                }
+            }
+        })
     })
 
-    map.addSource("ch", {
-        "type": "geojson",
-        "data": json_ch_2000
-    })
 
-    map.addLayer({
-    "id": "tb-pop-points",
-    "type": "circle",
-    "source": "tb",
-    "layout": {},
-    "paint": {
-        "circle-color": "rgba(137,0,2,.8)",
-        "circle-radius": {
-            'base': .5,
-            'stops': [[4, 2], [11, 7], [16, 16]]
-        }
-    }})
 
-    map.addLayer({
-    "id": "ch-pop-points",
-    "type": "circle",
-    "source": "ch",
-    "layout": {},
-    "paint": {
-        "circle-color": "rgba(255,204,6,.8)",
-        "circle-radius": {
-            'base': 2,
-            'stops': [[4, 4], [11, 15], [16, 40]]
-        }
-    }})
-}
+    // const tb_2000 = pops["tb"]["2000"]
+    // const json_tb_2000 = JSON.parse(JSON.stringify(tb_2000))
 
-    // const year = pops["1990"]
-
-    // const json = JSON.parse(JSON.stringify(year))
-
-    // map.addSource("populations", {
-    //     "type": "geojson",
-    //     "data": json
-    // })
-
-    // map.addLayer({
-    //     "id": "pop-points",
-    //     "type": "circle",
-    //     "source": "populations",
-    //     "layout": {},
-    //     "paint": {
-    //         "circle-color": "rgba(255,204,6,.5)",
-    //         "circle-radius": {
-    //             'base': 1.75,
-    //             'stops': [[3, 3], [11, 15], [16, 40]]
-    //         }
-    //     }
-    // })
+    // const ch_2000 = pops["chlamydia"]["2000"]
+    // const json_ch_2000 = JSON.parse(JSON.stringify(ch_2000))
+};

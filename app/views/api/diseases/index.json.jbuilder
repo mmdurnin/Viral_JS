@@ -12,6 +12,7 @@
                         json.STATE_ID "#{el.state_id}" # << wants it as a string
                         # json.name el.name
                         json.rate el.rate
+                        json.year el.year
                         # json.state el.state.name
                     end
                     json.id el.state_id
