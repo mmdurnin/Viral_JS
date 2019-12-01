@@ -151,3 +151,39 @@ end
 
 p "creating chlamydia"
 Disease.create(ch_arr)
+
+
+hep_arr = []
+CSV.foreach(Rails.root.join('data/hepab_state_2000-2017.csv'), headers: true) do |row|
+
+    disease_hash = {}
+    id = state_keys.find {|el| el[1] == row["Geography"]}[0]
+
+    print row["Geography"] if id == nil
+
+    disease_hash[:name] = row["Indicator"]
+    disease_hash[:year] = row["Year"].to_i
+    disease_hash[:state_id] = id
+
+    if row["Rate per 100000"] == "Data not available"
+        disease_hash[:rate] = 0
+    else
+        disease_hash[:rate] = row["Rate per 100000"].to_f
+    end
+
+
+    pop = pops_arr.find {|record| record[:state_id] == id && record[:year].to_i == row["Year"].to_i}
+    p row["Geography"] if pop == nil
+
+
+    num_points = disease_hash[:rate]
+    disease_hash[:points] = num_points
+    json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
+    disease_hash[:geom] = json_points.values[0][0]
+
+
+    hep_arr.push(disease_hash)
+end
+
+p "creating Hepatitis"
+Disease.create(hep_arr)

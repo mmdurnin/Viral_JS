@@ -23,6 +23,12 @@ $plain-font: 'News Cycle', sans-serif;
 $small-font: 'Saira Condensed', sans-serif;
 $big-font: 'Exo 2', sans-serif;
 
+@media only screen and (max-width: 800px)  {
+  .time-label {
+    display: none !important;
+  }
+}
+
 #time-box {
     position: absolute;
     bottom: 20px;
@@ -62,6 +68,7 @@ $big-font: 'Exo 2', sans-serif;
   display: inline-block;
   text-align: center;
   font-family: $small-font;
+  font-size: 10px;
 }
 
 .color {
