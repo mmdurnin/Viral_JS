@@ -1,0 +1,38 @@
+$vanilla: rgb(247,246,247);
+$beige: rgb(205,205,195);
+$sand: rgb(224,207,187);
+$stale-white: rgb(254,254,205);
+$gold: rgb(203,164,93);
+$mustard: rgb(204,146,48);
+$deep-yellow: rgb(255,204,6);
+$deep-orange: rgb(221,101,0);
+$deep-red: rgb(137,0,2);
+$ocean-blue: rgb(173,193,217);
+$normal-blue: rgb(0,102,224);
+$navy-gray: rgb(31,57,87);
+$navy: rgb(10,39,73);
+$navy-black: rgb(14,31,47);
+$deep-purple: rgb(70,33,158);
+$midnight: rgb(45,46,69);
+$black: rgb(3,11,21);
+
+$newspapar-font: 'Cinzel', serif;
+$lab-font: 'Orbitron', sans-serif;
+$curvy-font: 'Didact Gothic', sans-serif;
+$plain-font: 'News Cycle', sans-serif;
+$small-font: 'Saira Condensed', sans-serif;
+$big-font: 'Exo 2', sans-serif;
+
+#time-box {
+    position: absolute;
+    bottom: 50px;
+    left: 30px;
+    height: 20vh;
+    width: 20vw;
+
+    box-shadow: 0 0 1px rgba(34, 25, 25, 0.4);
+    border-radius: 2px;
+    background: $vanilla;
+    z-index: 2;
+
+}

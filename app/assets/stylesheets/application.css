@@ -13,6 +13,7 @@
  *= require mapbox-gl
  *= reset
  *= map
+ *= timebox
  *= nav
  *= require_tree .
  *= require_self
