@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 State.destroy_all
-Disease.destroy_all
+Disease.destroy_all # << seeding chlamydia and tb took forever do not reseed them! Just add to diseases
 StatePopulation.destroy_all
 
 require "json"
@@ -41,8 +41,8 @@ data["features"].each do |feature|
     state_arr.push(state_hash)
 end
 
+p "creating state records"
 State.create(state_arr)
-
 
 
 state_keys = State.all.pluck(:id, :name) #use this for all of the following tables
@@ -78,6 +78,7 @@ CSV.foreach(Rails.root.join('data/state_pops_1990-2019.csv'), headers: true) do 
 
 end
 
+p "creating state populations"
 StatePopulation.create(pops_arr)
 
 
@@ -101,9 +102,17 @@ CSV.foreach(Rails.root.join('data/tb_state_2000-2017.csv'), headers: true) do |r
     disease_hash[:year] = row["Year"].to_i
     disease_hash[:state_id] = id
 
+    pop = pops_arr.find {|record| record[:state_id] == id && record[:year].to_i == row["Year"].to_i}
+    p row["Geography"] if pop == nil
+
+    num_points = (pop[:population] / 100000) * disease_hash[:rate]
+    json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
+    disease_hash[:geom] = json_points.values[0][0]
+
     tb_arr.push(disease_hash)
 end
 
+p "creating tuberculosis"
 Disease.create(tb_arr)
 
 
@@ -125,7 +134,16 @@ CSV.foreach(Rails.root.join('data/chlamydia_state_2000-2017.csv'), headers: true
     disease_hash[:year] = row["Year"].to_i
     disease_hash[:state_id] = id
 
+    pop = pops_arr.find {|record| record[:state_id] == id && record[:year].to_i == row["Year"].to_i}
+    p row["Geography"] if pop == nil
+
+    num_points = ( (pop[:population] / 100000) * disease_hash[:rate] ) / 100
+    json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
+    disease_hash[:geom] = json_points.values[0][0]
+
+
     ch_arr.push(disease_hash)
 end
 
+p "creating chlamydia"
 Disease.create(ch_arr)

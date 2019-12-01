@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
         method: 'GET'
     }).then((pops) => populateMap(pops, map));
 
+    $.ajax({
+        url: '/api/diseases',
+        method: 'GET'
+    }).then((disease_rates) => spreadDiseases(disease_rates, map))
+
 })
 
 
@@ -57,7 +62,6 @@ function decorateMap(states, map) {
         "layout": {},
         "paint": {
             "fill-color": "rgb(70,33,158)",
-            // "fill-color": "#0F1358",
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
                 .75,

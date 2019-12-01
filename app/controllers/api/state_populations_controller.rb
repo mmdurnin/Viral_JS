@@ -1,7 +1,7 @@
 class Api::StatePopulationsController < ApplicationController
 
     def index
-        @state_pops = StatePopulation.select("id, state_id, year, ST_AsGeoJSON(geom) AS pop_points")
+        @state_pops = StatePopulation.select("id, population, state_id, year, ST_AsGeoJSON(geom) AS pop_points")
         @years = StatePopulation.select(:year).group(:year)
     end
 
