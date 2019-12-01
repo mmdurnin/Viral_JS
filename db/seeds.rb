@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 State.destroy_all
-Disease.destroy_all # << seeding chlamydia and tb took forever do not reseed them! Just add to diseases
+Disease.destroy_all 
 StatePopulation.destroy_all
 
 require "json"
@@ -105,7 +105,9 @@ CSV.foreach(Rails.root.join('data/tb_state_2000-2017.csv'), headers: true) do |r
     pop = pops_arr.find {|record| record[:state_id] == id && record[:year].to_i == row["Year"].to_i}
     p row["Geography"] if pop == nil
 
-    num_points = (pop[:population] / 100000) * disease_hash[:rate]
+    # num_points = (pop[:population] / 100000) * disease_hash[:rate]
+    num_points = disease_hash[:rate]
+    disease_hash[:points] = num_points
     json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
     disease_hash[:geom] = json_points.values[0][0]
 
@@ -137,7 +139,9 @@ CSV.foreach(Rails.root.join('data/chlamydia_state_2000-2017.csv'), headers: true
     pop = pops_arr.find {|record| record[:state_id] == id && record[:year].to_i == row["Year"].to_i}
     p row["Geography"] if pop == nil
 
-    num_points = ( (pop[:population] / 100000) * disease_hash[:rate] ) / 100
+    # num_points = ( (pop[:population] / 100000) * disease_hash[:rate] ) / 100
+    num_points = disease_hash[:rate] / 10
+    disease_hash[:points] = num_points
     json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
     disease_hash[:geom] = json_points.values[0][0]
 

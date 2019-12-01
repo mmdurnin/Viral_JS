@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_01_040701) do
+ActiveRecord::Schema.define(version: 2019_12_01_042835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_12_01_040701) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.geometry "geom", limit: {:srid=>4326, :type=>"multi_point"}
+    t.integer "points"
     t.index ["geom"], name: "index_diseases_on_geom", using: :gist
     t.index ["name"], name: "index_diseases_on_name"
     t.index ["rate"], name: "index_diseases_on_rate"
