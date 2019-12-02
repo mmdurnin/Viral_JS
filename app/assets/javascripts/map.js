@@ -115,9 +115,9 @@ function populateMap(pops, map) {
             'match',
                 ['get', 'name'],
                 'tb', '#fbb03b',
-                'chlamydia', '#223b53',
+                'chlamydia', '#3bb2d0',
                 'Hepatitis  A', '#e55e5e',
-                'Acute Viral Hepatitis B', '#3bb2d0',
+                'Acute Viral Hepatitis B', '#223b53',
                 '#ccc'
             ],
             "circle-radius": [
