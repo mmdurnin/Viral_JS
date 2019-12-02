@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         center: [-100.486052, 37.830348],
         // pitch: 45, // pitch in degrees
         // bearing: 10, // bearing in degrees
-        zoom: 3
+        zoom: 3.5
     });
 
     $.ajax({

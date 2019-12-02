@@ -9,6 +9,7 @@ $deep-orange: rgb(221,101,0);
 $deep-red: rgb(137,0,2);
 $ocean-blue: rgb(173,193,217);
 $normal-blue: rgb(0,102,224);
+$bavarian-forest: rgb(1,63,74);
 $navy-gray: rgb(31,57,87);
 $navy: rgb(10,39,73);
 $navy-black: rgb(14,31,47);
@@ -72,14 +73,38 @@ $big-font: 'Exo 2', sans-serif;
 }
 
 .nav-title-reveal {
-    padding: .5em 0;
-    margin: 0;
+    padding: .3em 0;
+    margin: .5em;
     font-size: 25px;
+    height: fit-content;
     text-align: center;
-    color: $navy;
+    background-color: rgb(1,63,74);
     font-family: $curvy-font;
+    border: 4px double white;
+    color: white;
 }
 
+.submit-filters {
+    text-align: center;
+    border-radius: 2px;
+    width: 90%;
+    padding: .35em;
+    margin: .5em;
+    margin-top: 30px;
+    background-color: white;
+    // background-color: rgb(250, 250, 250);
+    color: $black;
+    font-family: $curvy-font;
+    font-size: 18px;
+    font-weight: 1000;
+    // border: 2px solid $black;
+    // box-shadow: 0 1px #FFFFFF inset, 0 1px 3px rgba(34, 25, 25, 0.4);
+        box-shadow: 0 1px #FFFFFF inset, 0 0px 5px rgba(34, 25, 25, 0.2);
+}
+
+.submit-filters:hover {
+    cursor: pointer;
+}
 
 .nav-conceal, .nav-form-conceal, .nav-title-conceal {
     display: none;

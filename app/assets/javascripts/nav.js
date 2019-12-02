@@ -22,13 +22,15 @@ function makeNav(diseaseNames) {
         const diseaseForm = document.createElement("form")
 
         diseaseForm.innerHTML = diseaseNames.map((disease, i) => {
-            console.log(disease.name)
-            console.log(typeof(disease.name))
+
             const dName = disease.name.split(" ").join("_")
+            let displayName = disease.name
+            if (displayName === "tb") displayName = "Tuberculosis"
+            if (displayName === "chlamydia") displayName = "Chlamydia"
             return `
                 <li>
                 <input type="checkbox" value="false" className="disease-input" data-index=${i} name=${dName} />
-                <label for="item${i}">${disease.name}</label>
+                <label for="item${i}">${displayName}</label>
                 </li>
             `;
         }).join('');
