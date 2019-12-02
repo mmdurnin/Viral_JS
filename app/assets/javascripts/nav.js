@@ -24,9 +24,10 @@ function makeNav(diseaseNames) {
         diseaseForm.innerHTML = diseaseNames.map((disease, i) => {
             console.log(disease.name)
             console.log(typeof(disease.name))
+            const dName = disease.name.split(" ").join("_")
             return `
                 <li>
-                <input type="checkbox" value="false" className="disease-input" data-index=${i} name=${disease.name} />
+                <input type="checkbox" value="false" className="disease-input" data-index=${i} name=${dName} />
                 <label for="item${i}">${disease.name}</label>
                 </li>
             `;
@@ -72,7 +73,7 @@ function makeNav(diseaseNames) {
 
     const handleConceal = () => {
         navStatus = "closed"
-        button.innerHTML = "Open"
+        button.innerHTML = "Filters"
         nav.className = "nav-conceal"
 
         const navTitle = document.querySelector("h3")

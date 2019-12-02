@@ -150,7 +150,9 @@ function populateMap(pops, map) {
         for (let i = 0; i < diseaseFilters.length; i++) {
             diseaseTemp = diseaseFilters[i]
             if (diseaseTemp.value === "true") {
-                diseaseDisplay.push(diseaseTemp.name)
+                dName = diseaseTemp.name.split("_").join(" ")
+                console.log(dName)
+                diseaseDisplay.push(dName)
             }
         }
         playTimeLapse();
