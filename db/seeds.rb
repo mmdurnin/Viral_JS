@@ -30,6 +30,8 @@ data["features"].each do |feature|
 
     json = feature
 
+    p json
+
     if feature["geometry"]["type"] == "Polygon"
         poly_text = RGeo::GeoJSON.decode(json).geometry.to_s
         polygon = factory.parse_wkt(poly_text)
