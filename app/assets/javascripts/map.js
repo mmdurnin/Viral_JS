@@ -192,6 +192,7 @@ function populateMap(pops, map) {
             ticker.stepUp();
             if (ticker_pop > 2017) {
                 clearInterval(keepSpreading)
+                ticker.value = 2000
             }
         }, 85);
     }
