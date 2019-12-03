@@ -111,6 +111,8 @@ function populateMap(pops, map) {
         "source": "disease_pops",
         "layout": {},
         "paint": {
+            'circle-opacity': 0.2,
+            'circle-opacity-transition': {duration: 800},
             'circle-color': [
             'match',
                 ['get', 'name'],
@@ -188,13 +190,25 @@ function populateMap(pops, map) {
         const keepSpreading = setInterval(function () {
             const ticker = document.getElementById('slider');
             ticker_pop += 1
+            fadeCircles();
             filterBy(ticker_pop, diseaseDisplay);
             ticker.stepUp();
             if (ticker_pop > 2017) {
                 clearInterval(keepSpreading)
                 ticker.value = 2000
             }
-        }, 85);
+        }, 500);
+    }
+
+    function fadeCircles() {
+        setTimeout(function() {
+            // console.log("fade circles in")
+            map.setPaintProperty('pop-points', 'circle-opacity', 1)
+        }, 100);
+        setTimeout(function () {
+            // console.log("fade circles out")
+            map.setPaintProperty('pop-points', 'circle-opacity', .1)
+        }, 500);
     }
 }
 
