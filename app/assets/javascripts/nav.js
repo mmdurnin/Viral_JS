@@ -72,7 +72,8 @@ function makeNav(diseaseNames) {
         const navForm = document.querySelector("form")
         navForm.className = "nav-form-reveal"
 
-        document.getElementById("curvedarrow").removeAttribute("id");
+        const curvedArrow = document.getElementById("curvedarrow");
+        if (curvedArrow) curvedArrow.removeAttribute("id");
         document.getElementById("display-load").removeAttribute("class");
     };
 
