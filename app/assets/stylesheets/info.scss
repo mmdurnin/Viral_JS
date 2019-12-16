@@ -1,0 +1,32 @@
+@import 'base';
+
+#info-button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 20px;
+    right: 30px;
+    height: 30px;
+    width: 100px;
+    border: 2px solid white;
+    border-radius: 3px;
+    font-family: $big-font;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+
+    z-index: 16;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+#info {
+
+}
+
+#info-modal {
+
+}
+

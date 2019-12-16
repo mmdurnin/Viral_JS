@@ -15,6 +15,7 @@
  *= map
  *= timebox
  *= nav
+ *= info
  *= require_tree .
  *= require_self
  */
