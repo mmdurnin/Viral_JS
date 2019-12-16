@@ -18,7 +18,7 @@ function createTimeBox() {
     slider.type = "range"
     slider.id = "slider"
     slider.min = 2000
-    slider.max = 2018
+    slider.max = 2017
     slider.step = 1
     slider.value = 2000
 
@@ -30,7 +30,7 @@ function createTimeBox() {
     timeBoxPhase.classList.add("row");
 
 
-    for (let i = 2000; i < 2019; i++) {
+    for (let i = 2000; i < 2018; i++) {
         phase = document.createElement("div")
         phase.classList.add("time-label");
         phase.innerHTML = `${i}` + " "

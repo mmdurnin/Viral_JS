@@ -184,8 +184,6 @@ function populateMap(pops, map) {
 
     
     function playTimeLapse() {
-        console.log(diseaseDisplay)
-        console.log("this is playTimeLapse") 
         let ticker_pop = 2000; 
         const keepSpreading = setInterval(function () {
             const ticker = document.getElementById('slider');
@@ -193,21 +191,19 @@ function populateMap(pops, map) {
             fadeCircles();
             filterBy(ticker_pop, diseaseDisplay);
             ticker.stepUp();
-            if (ticker_pop > 2017) {
+            if (ticker_pop >= 2017) {
                 clearInterval(keepSpreading)
-                ticker.value = 2000
+                ticker.value = 2017
             }
         }, 500);
     }
 
     function fadeCircles() {
         setTimeout(function() {
-            // console.log("fade circles in")
             map.setPaintProperty('pop-points', 'circle-opacity', 1)
         }, 100);
         setTimeout(function () {
-            // console.log("fade circles out")
-            map.setPaintProperty('pop-points', 'circle-opacity', .1)
+            map.setPaintProperty('pop-points', 'circle-opacity', .6)
         }, 500);
     }
 }
