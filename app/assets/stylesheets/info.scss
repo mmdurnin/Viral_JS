@@ -25,11 +25,53 @@
     }
 }
 
-#info {
+.active-modal-back {
+    z-index: 14;
+    position: fixed;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(35, 22, 74, 0.256);
+
+    animation: back-modal;
+    animation-duration: 3s;
 }
 
-#info-modal {
+.active-modal-front {
+    z-index: 15;
+    height: 400px;
+    width: 400px;
+    background-color: white;
 
+    animation: front-modal ease-in 3s;
+    animation-duration: 3s;
+
+    @keyframes front-modal {
+        // 0% {
+        //     opacity: 1;
+        // }
+
+        // 33% {
+        //     opacity: .75;
+        // }
+
+        // 66% {
+        //     opacity: .4
+        // }
+
+        // 100% {
+        //     opacity: 0;
+        // }
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
 }
-
