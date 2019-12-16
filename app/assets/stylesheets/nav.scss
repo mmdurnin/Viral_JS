@@ -42,20 +42,32 @@ $big-font: 'Exo 2', sans-serif;
     cursor: pointer;
 }
 
-.nav-reveal {
-    position: absolute;
+#nav {
     overflow: scroll;
-    top: 50px;
-    left: 30px;
-    height: 70vh;
-    width: 20vw;
+    top: 60px;
+    position: absolute;
 
-    padding: 0 1.5em;
-    
+    height: fit-content;
+    width: 20vw;
+    left: -300px;
+
     box-shadow: 0 0 1px rgba(34, 25, 25, 0.4);
     border-radius: 2px;
     background: $vanilla;
     z-index: 2;
+}
+
+.nav-reveal {
+    transform: translateX(300px);
+    transition: ease-in 1s;
+
+    
+    // left: 30px;
+    
+
+    padding: 0 1.5em;
+    
+    
 }
 
 .nav-form-reveal {
@@ -70,6 +82,7 @@ $big-font: 'Exo 2', sans-serif;
 .nav-form-reveal label {
     padding: 0 .85em;
     font-family: $small-font;
+    font-size: 24px;
 }
 
 .nav-title-reveal {
@@ -107,7 +120,9 @@ $big-font: 'Exo 2', sans-serif;
 }
 
 .nav-conceal, .nav-form-conceal, .nav-title-conceal {
-    display: none;
+    // display: none;
+    transform: translateX(-300px);
+    transition: ease-out;
 }
 
 #curvedarrow {
