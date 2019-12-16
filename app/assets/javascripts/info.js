@@ -1,3 +1,6 @@
+const content = document.createElement("div")
+
+
 window.addEventListener("DOMContentLoaded", () => {
     const infoButton = document.getElementById('info-button')
     const infoWindow = document.getElementById('info')
@@ -25,4 +28,5 @@ window.addEventListener("DOMContentLoaded", () => {
     infoButton.addEventListener("click", handleModal)
     infoWindow.addEventListener("click", (e) => handleModal(e))
     infoModal.addEventListener("click", () => {return})
+
 })
