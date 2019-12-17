@@ -43,7 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
     
     const handleModal = (e) => {
         console.log(e.currentTarget);
-        if (e.currentTarget.id === "info-modal") return
+        if (e.path.includes(document.getElementById("info-modal"))) return
         if (modalStatus === "closed") {
             modalStatus = "open";
             infoButton.innerText = "Close"
