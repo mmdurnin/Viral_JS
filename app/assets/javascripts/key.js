@@ -30,4 +30,26 @@ document.addEventListener("DOMContentLoaded", () => {
     items.appendChild(tb)
 
     key.appendChild(items)
+
+    const keyButton = document.getElementById("key-button")
+    keyStatus = "closed"
+
+    const handleKey = () => {
+        if (keyStatus === "closed") {
+            keyStatus = "open"
+            keyButton.innerHTML = "Close"
+
+            keyButton.setAttribute("style", "bottom: 300px;");
+            key.setAttribute("style", "z-index: 2;")
+        } else {
+            keyStatus = "closed"
+            keyButton.innerHTML = "Key"
+
+            keyButton.setAttribute("style", "bottom: 20px");
+            key.setAttribute("style", "z-index: -1;")
+        }
+    }
+
+
+    keyButton.addEventListener("click", handleKey)
 })
