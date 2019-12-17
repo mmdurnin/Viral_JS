@@ -50,6 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // 'tb', '#fbb03b',
+    // 'chlamydia', '#3bb2d0',
+    // 'Hepatitis  A', '#e55e5e',
+    // 'Acute Viral Hepatitis B', '#223b53'
+
 
     keyButton.addEventListener("click", handleKey)
 })

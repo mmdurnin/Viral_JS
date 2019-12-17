@@ -18,8 +18,44 @@
     }
 
     li {
-        padding: .15em;
+        // padding: .02rem;
         font-family: $plain-font;
+        font-size: 18px;
+    }
+    .hepA-key::before {
+        content: "\2022";
+        color: #e55e5e;
+        font-weight: bold;
+        display: inline-block;
+        font-size: 20px;
+        margin: 0 3px;
+    }
+
+    .chlamydia-key::before {
+        content: "\2022";
+        color: #3bb2d0;
+        font-weight: bold;
+        display: inline-block;
+        font-size: 30px;
+        margin: 0 3px;
+    }
+
+    .hepB-key::before {
+        content: "\2022";
+        color: #223b53;
+        font-weight: bold;
+        display: inline-block;
+        font-size: 20px;
+        margin: 0 3px;
+    }
+
+    .tb-key::before {
+        content: "\2022";
+        color: #fbb03b;
+        font-weight: bold;
+        display: inline-block;
+        font-size: 20px;
+        margin: 0 3px;
     }
 }
 
