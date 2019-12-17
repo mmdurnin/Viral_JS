@@ -1,0 +1,55 @@
+@import 'base';
+
+@media screen and (min-width: 1001px) {
+    #key {
+        z-index: 2;
+        position: absolute;
+        margin: .85em;
+        padding: .85em;
+        bottom: 20px;
+        right: 20px;
+        height: fit-content;
+        width: fit-content;
+
+        border: double $bavarian-forest;
+        background: rgba(255, 255, 255, 0.8);
+
+        h1 {
+            text-align: center;
+            font-family: $big-font;
+        }
+
+        li {
+            padding: .15em;
+            font-family: $plain-font;
+        }
+    }
+
+    #key-button {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #key {
+        display: none !important;
+    }
+
+    #key-button {
+        position: absolute;
+        z-index: 2;
+
+        padding: .85em;
+        height: fit-content;
+        width: fit-content;
+        bottom: 20px;
+        right: 20px;
+
+        background-color: $bavarian-forest;
+        color: white;
+        font-family: $big-font;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 3px;
+    }
+}

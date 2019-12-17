@@ -27,7 +27,7 @@ content.appendChild(h4)
 content.appendChild(p4)
 
 const who = document.createElement("a");
-who.src = "https://www.who.int/"
+who.href = "https://www.who.int/"
 who.innerHTML = "Visit WHO website"
 content.appendChild(who)
 

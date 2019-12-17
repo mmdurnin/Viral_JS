@@ -24,8 +24,8 @@
     position: absolute;
 
     height: fit-content;
-    width: 20vw;
-    left: -300px;
+    min-width: fit-content;
+    left: -500px;
 
     box-shadow: 0 0 1px rgba(34, 25, 25, 0.4);
     border-radius: 2px;
@@ -34,11 +34,8 @@
 }
 
 .nav-reveal {
-    transform: translateX(300px);
+    transform: translateX(500px);
     transition: ease-in 1s;
-
-    
-    // left: 30px;
     
 
     padding: 0 1.5em;
