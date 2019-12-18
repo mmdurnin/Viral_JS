@@ -137,7 +137,6 @@ function populateMap(pops, map) {
     document.getElementById('disease-form').addEventListener("change", function (e) {
         if (e.target.checked === true) {
             e.target.value = true
-            console.log(e.target)
         } else {
             e.target.value = false
         }
@@ -153,7 +152,6 @@ function populateMap(pops, map) {
             diseaseTemp = diseaseFilters[i]
             if (diseaseTemp.value === "true") {
                 dName = diseaseTemp.name.split("_").join(" ")
-                console.log(dName)
                 diseaseDisplay.push(dName)
             }
         }
@@ -163,7 +161,6 @@ function populateMap(pops, map) {
     function filterBy(year, diseaseArr) {
         diseaseArr.unshift('name')
         diseaseArr.unshift('in')
-        console.log(diseaseArr)
 
         var filters = ['all', ['==', 'year', year], diseaseArr]
         map.setFilter('pop-points', filters)

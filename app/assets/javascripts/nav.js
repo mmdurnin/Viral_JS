@@ -53,7 +53,7 @@ function makeNav(diseaseNames) {
     createDropDown();
 
     const handleNav = () => {
-        console.log("handleNav")
+
         if (navStatus === "closed") {
             return handleReveal();
         } else {
