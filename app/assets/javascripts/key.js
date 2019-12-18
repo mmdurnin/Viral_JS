@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             keyStatus = "open"
             keyButton.innerHTML = "Close"
 
-            keyButton.setAttribute("style", "bottom: 300px;");
+            keyButton.setAttribute("style", "bottom: 180px;");
             key.setAttribute("style", "z-index: 2;")
         } else {
             keyStatus = "closed"

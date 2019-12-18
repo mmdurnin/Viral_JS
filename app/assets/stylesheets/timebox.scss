@@ -1,8 +1,14 @@
 @import 'base';
 
-@media only screen and (max-width: 800px)  {
+@media only screen and (max-width: 750px)  {
   .time-label {
     display: none !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .time-label {
+    font-size: 15px !important;
   }
 }
 
