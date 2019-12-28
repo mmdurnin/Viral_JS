@@ -20,3 +20,11 @@ Viral is a data visualization tool for viewing annual disease trends from state-
 ### <a id="search"></a>Filtered Search ###
 ### <a id="timeframe"></a>Timeframe Animation ###
 ### <a id="design"></a>Responsive Design & Smooth Animation Displays ###
+
+## <a id="Technologies"></a>Technologies ##
+## <a id="Installation"></a>Installation ##
+## <a id="future"></a>Future Directions ##
+## <a id="Sources"></a>Sources ##
+
+## <a id="Links"></a>Links ##
+visit [Viral](http://viral-map.herokuapp.com/#/)
