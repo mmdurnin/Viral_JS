@@ -1,7 +1,7 @@
 # <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/icon.png" height="57" align="left" > Welcome to Viral!
 -------------
 
-Viral is a data visualization tool for viewing annual disease trends from state-to-state. The data are represented as points across the United States map. To learn more about data represention and to see the visualization in action, visit [Viral](http://viral-map.herokuapp.com/#/).
+Viral is a data visualization tool for viewing annual disease trends from state-to-state. The data are represented as points across the United States map. To learn more about the data represention and to see the visualization in action, visit [Viral](http://viral-map.herokuapp.com/#/).
 
 <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/viral_screenshot.png" width="100%" align="center" >
 
@@ -18,17 +18,17 @@ Viral is a data visualization tool for viewing annual disease trends from state-
 
 ## <a id="Features-&-Highlights"></a>Features & Highlights ##
 
-<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/map_addlayer.png" width="40%" align="left" >
-
 ### <a id="visualization"></a>Virality Display / Data Visualization ###
 
 This project uses the JavaScript Mapbox library for map rendering. Rather than using an external API, all state coordinate information and disease rate information is stored on the backend. PostGIS was used for storing and working with geographic information on the database level with PostgreSQL. The data used in this project are represented as randomized points confined within state boundaries. These randomized coordinates were generated with PostGIS and are also stored in the database. RGeo was used for formatting geographic data. 
 
-The heart of the project lives on map.js. The map has 3 layers: the map, the state boundary outlines, and the disease data. The disease data are retrieved from the backend in JSON format as randomized coordinates. Mapbox has a variety of tools for data representation. 
+<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/map_addlayer.png" width="30%" align="left" >
+
+The heart of the project lives on map.js. The map has 3 layers: the map, the state boundaries, and the disease data. The disease data are retrieved from the backend in JSON format as randomized coordinates. Mapbox has a variety of tools for data representation. Here, each coordinate is expressed as type circle and each type of disease is given a unique color. For scalability, diseases with higher rates are expressed as rate per 10,000 and are given a larger radius. Most of the diseases here are expressed as rate per 100,000.
 
 ### <a id="search"></a>Filtered Search ###
 
-Viral allows users to select which diseases they are interested in seeing on the map. On clicking the filters button, a menu opens from the side with each disease as a checkbox item. On submit, a function to render the filtered data is executed.
+Viral allows users to select which diseases they are interested in seeing on the map. When the map first loads, all of the disease coordinates are retrieved from the backend. On clicking the filters button, a menu opens from the side with each disease as a checkbox item. On submit, a function to render the filtered data is executed.
 
 <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/gifs/v.play.gif" width="50%" align="right" >
 
