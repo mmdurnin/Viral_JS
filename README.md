@@ -55,7 +55,7 @@ When a user selects "About Viral", a modal opens with information on the project
 
 ## <a id="Technologies"></a>Technologies ##
 * PostgreSQL & PostGIS
-* RGeo library that handles JSON formatting of geographic data
+* RGeo 
 * Ruby on Rails
 * Javascript
 * Mapbox
