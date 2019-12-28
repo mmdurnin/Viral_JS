@@ -3,24 +3,20 @@
 
 Viral is a data visualization tool for viewing annual disease trends from state-to-state. The data are represented as points across the United States map. To learn more about data represention and to see the visualization in action, visit [Viral](http://viral-map.herokuapp.com/#/).
 
+## Table of Contents
+* [Features & Highlights](#Features-&-Highlights)
+  * [Virality Display](#visualization)
+  * [Filtered Search](#search)
+  * [Timeframe Animation](#timeframe)
+  * [Responsive Design & Animated Displays](#design)
+* [Technologies](#Technologies)
+* [Installation](#Installation)
+* [Future Directions](#future)
+* [Sources](#Sources)
+* [Links](#Links)
 
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## <a id="Features-&-Highlights"></a>Features & Highlights ##
+### <a id="visualization"></a>Virality Display / Data Visualization ###
+### <a id="search"></a>Filtered Search ###
+### <a id="timeframe"></a>Timeframe Animation ###
+### <a id="design"></a>Responsive Design & Smooth Animation Displays ###
