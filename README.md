@@ -1,7 +1,9 @@
-# README
+# Welcome to Viral! 
+<!-- <img src="https://github.com/mmdurnin/TableFor2/blob/master/app/assets/images/tf2_logo.png" align="right" height="57" width="226" > -->
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Viral is a data visualization tool for viewing annual disease trends from state-to-state. The data are represented as points across the United States map. To learn more about data represention and to see the visualization in action, visit [Viral](http://viral-map.herokuapp.com/#/).
+
+
 
 Things you may want to cover:
 
