@@ -3,6 +3,8 @@
 
 Viral is a data visualization tool for viewing annual disease trends from state-to-state. The data are represented as points across the United States map. To learn more about data represention and to see the visualization in action, visit [Viral](http://viral-map.herokuapp.com/#/).
 
+<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/viral_screenshot.png" width="100%" align="center" >
+
 ## Table of Contents
 * [Features & Highlights](#Features-&-Highlights)
   * [Virality Display](#visualization)
@@ -16,13 +18,21 @@ Viral is a data visualization tool for viewing annual disease trends from state-
 * [Links](#Links)
 
 ## <a id="Features-&-Highlights"></a>Features & Highlights ##
+<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/gifs/v.play.gif" width="50%" align="left" >
+
 ### <a id="visualization"></a>Virality Display / Data Visualization ###
+This project uses the JavaScript Mapbox library for map rendering. Rather than using an external API, all state coordinate information and disease rate information is stored on the backend. PostGIS was used for storing and working with geographic information on the database level with PostgreSQL. The data used in this project are represented as randomized points confined within state boundaries. These randomized coordinates were generated with PostGIS and are also stored in the database. RGeo was used for formatting geographic data. 
+
+The heart of the project lives on map.js. The map has 3 layers: the map, the state boundary outlines, and the disease data. The disease data are retrieved from the backend in JSON format as randomized coordinates. Mapbox has a variety of tools for data representation. 
+
 ### <a id="search"></a>Filtered Search ###
 ### <a id="timeframe"></a>Timeframe Animation ###
 ### <a id="design"></a>Responsive Design & Smooth Animation Displays ###
 
 ## <a id="Technologies"></a>Technologies ##
 * PostgreSQL & PostGIS
+* RGeo library that handles JSON formatting of geographic data
+* Ruby on Rails
 * Javascript
 * Mapbox
 * CSS3
