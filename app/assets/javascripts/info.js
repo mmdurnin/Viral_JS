@@ -29,6 +29,7 @@ content.appendChild(p4)
 const who = document.createElement("a");
 who.href = "https://www.who.int/"
 who.innerHTML = "Visit WHO website"
+who.target = "_blank"
 content.appendChild(who)
 
 
