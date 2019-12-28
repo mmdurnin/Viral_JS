@@ -22,9 +22,16 @@ Viral is a data visualization tool for viewing annual disease trends from state-
 ### <a id="design"></a>Responsive Design & Smooth Animation Displays ###
 
 ## <a id="Technologies"></a>Technologies ##
-## <a id="Installation"></a>Installation ##
+* PostgreSQL & PostGIS
+* Javascript
+* Mapbox
+* CSS3
+
 ## <a id="future"></a>Future Directions ##
+The next crucial step for this project will be collecting more data on disease rates. This includes geographic coverage (both expanding and refining to county-specific rates), the collection of represented diseases, and timeframe. With a larger scale dataset, the project will ideally convey discernable morbidity trends linked to important health practices, e.g., vaccinations, sexual health, access to safe drinking water, etc. 
+
 ## <a id="Sources"></a>Sources ##
+Disease rate information for this project was collected from the [World Health Organization](https://www.who.int/)
 
 ## <a id="Links"></a>Links ##
-visit [Viral](http://viral-map.herokuapp.com/#/)
+Visit [Viral](http://viral-map.herokuapp.com/#/)
