@@ -40,6 +40,19 @@ As mentioned above, the second argument given to the filter function is a year. 
 
 ### <a id="design"></a>Responsive Design & Smooth Animation Displays ###
 
+<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/gifs/v.resize.gif" width="48%" align="left" >
+
+<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/gifs/v.modal.gif" width="48%" >
+
+#### Responsive Design
+Viral is user-friendly across devices. This is achieved with media queries and fluid sizing. The height and width of the filters menu and the buttons are set to fit content. The width of the year slider is set to 70% of the screen. At a screen width of 1000px or less, the key is hidden and replaced with a button. When the button is clicked, the key appears. Rather than changing displays, the button and key are given z-indexes depending on their status.
+
+#### Smooth Animation Displays
+When a user selects the filter menu, it slides in from the left. This is achieved through the CSS transform property. When a user clicks on the filters button, a class is added to the menu which shifts its "left" property into the window display. 
+
+When a user selects "About Viral", a modal opens with information on the project. The modal transitions into display slowly. First, the borders appear one by one and then the inner content fades in. This was achieved through CSS animations. When keyframes are set to 0%, all borders are transparent. At 5%, the top border is set to appear, the left at 30% and so on. At 70% all borders are given the property of 3px solid white and the background color is set to an opacity of .5. By 100% the modal is fully visible. This happens over a duration of 1.5 seconds.
+
+
 ## <a id="Technologies"></a>Technologies ##
 * PostgreSQL & PostGIS
 * RGeo library that handles JSON formatting of geographic data
