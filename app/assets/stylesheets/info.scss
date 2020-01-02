@@ -108,6 +108,7 @@
             border-right: transparent;
             border-bottom: transparent;
             background-color: rgba(255, 255, 255, 0.0);
+            color: rgba(0, 0, 0, 0.303);
         }
 
         50% {
@@ -117,6 +118,7 @@
             border-right: transparent;
             background-color: rgba(255, 255, 255, 0.0);
             color: transparent;
+            color: rgba(0, 0, 0, 0.503);
         }
 
         70% {
@@ -125,7 +127,7 @@
             border-bottom: 3px solid white;
             border-right: 3px solid white;
             background-color: rgba(255, 255, 255, 0.5);
-            color: rgba(0, 0, 0, 0.303);
+            color: rgba(0, 0, 0, 0.703);
         }
 
         80% {
