@@ -83,11 +83,37 @@ As demonstrated in the code above, first an event listener on the submit button 
 
 <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/gifs/v.play.gif" width="100%" align="center" >
 
-<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/automated_filter.png" width="50%" align="right" >
+<!-- <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/automated_filter.png" width="50%" align="right" > -->
 
 ### <a id="timeframe"></a>Timeframe Animation ###
 
-As mentioned above, the second argument given to the filter function is a year. The year is initially set to 1990 so that all coordinates are hidden (currently there is no disease matching the year 1990). As the above snippet shows, the function that is executed when a user clicks submit calls another function: playTimeLapse. PlayTimeLapse handles the automated re-rendering with a setInterval. At each 500ms interval, the year ("tickerPop") is incremented by one and two other functions are called: fadeCircles and filterBy. The fadeCircles function is in place to create a more smooth transition between map renders using circle opacity transitions. The filterBy function is given the incremented year and the disease array triggers a re-render. 
+As mentioned above, the second argument given to the filter function is a year. The year is initially set to 1990 so that all coordinates are hidden (currently there is no disease matching the year 1990). As the above snippet shows, the function that is executed when a user clicks submit calls another function: playTimeLapse. PlayTimeLapse handles the automated re-rendering with a setInterval. At each 500ms interval, the year ("tickerPop") is incremented by one and two other functions are called: fadeCircles and filterBy. The fadeCircles function is in place to create a more smooth transition between map renders using circle opacity transitions. The filterBy function is given the incremented year and the disease array triggers a re-render.
+
+```Javascript
+    function playTimeLapse() {
+        let ticker_pop = 2000; 
+        const keepSpreading = setInterval(function () {
+            const ticker = document.getElementById('slider');
+            ticker_pop += 1
+            fadeCircles();
+            filterBy(ticker_pop, diseaseDisplay);
+            ticker.stepUp();
+            if (ticker_pop >= 2017) {
+                clearInterval(keepSpreading)
+                ticker.value = 2017
+            }
+        }, 500);
+    }
+
+    function fadeCircles() {
+        setTimeout(function() {
+            map.setPaintProperty('pop-points', 'circle-opacity', 1)
+        }, 100);
+        setTimeout(function () {
+            map.setPaintProperty('pop-points', 'circle-opacity', .6)
+        }, 500);
+    }
+```
 
 ### <a id="design"></a>Responsive Design & Smooth Animation Displays ###
 
