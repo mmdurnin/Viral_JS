@@ -20,10 +20,42 @@ Viral is a data visualization tool for viewing annual disease trends from state-
 
 ### <a id="visualization"></a>Virality Display / Data Visualization ###
 
-This project uses the JavaScript Mapbox library for map rendering. Rather than using an external API, all state coordinate information and disease rate information is stored on the backend. PostGIS was used for storing and working with geographic information on the database level with PostgreSQL. 
-<img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/map_addlayer.png" width="30%" align="left" > The data used in this project are represented as randomized points confined within state boundaries. These randomized coordinates were generated with PostGIS and are also stored in the database. RGeo was used for formatting geographic data. 
+This project uses the JavaScript Mapbox library for map rendering. Rather than using an external API, all state coordinate information and disease rate information is stored on the backend. PostGIS was used for storing and working with geographic information on the database level with PostgreSQL. The data used in this project are represented as randomized points confined within state boundaries. These randomized coordinates were generated with PostGIS and are also stored in the database. RGeo was used for formatting geographic data. 
 
 The heart of the project lives on map.js. The map has 3 layers: the map, the state boundaries, and the disease data. The disease data are retrieved from the backend in JSON format as randomized coordinates. Each set of randomized coordinates is linked with a year and a disease. Mapbox has a variety of tools for data representation. Here, each coordinate is expressed as type circle and each type of disease is given a unique color. For scalability, diseases with higher rates are expressed as rate per 10,000 and are given a larger radius. Most of the diseases here are expressed as rate per 100,000.
+
+```Javascript
+    map.addLayer({
+        "id": "pop-points",
+        "type": "circle",
+        "source": "disease_pops",
+        "layout": {},
+        "paint": {
+            'circle-opacity': 0.2,
+            'circle-opacity-transition': {duration: 800},
+            'circle-color': [
+            'match',
+                ['get', 'name'],
+                'tb', '#fbb03b',
+                'chlamydia', '#3bb2d0',
+                'Hepatitis  A', '#e55e5e',
+                'Acute Viral Hepatitis B', '#223b53',
+                '#ccc'
+            ],
+            "circle-radius": [
+                'match',
+                    ['get', 'name'],
+                    'tb', 2,
+                    'chlamydia', 3,
+                    'Hepatitis  A', 2,
+                    'Acute Viral Hepatitis B', 2,
+                    2
+            ]
+        }
+    })
+```
+
+<!-- <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/map_addlayer.png" width="30%" align="left" > -->
 
 ### <a id="search"></a>Filtered Search ###
 
