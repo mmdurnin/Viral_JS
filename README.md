@@ -22,7 +22,7 @@ Viral is a data visualization tool for viewing annual disease trends from state-
 
 This project uses the JavaScript Mapbox library for map rendering. Rather than using an external API, all state coordinate information and disease rate information is stored on the backend. PostGIS was used for storing and working with geographic information on the database level with PostgreSQL. The data used in this project are represented as randomized points confined within state boundaries. These randomized coordinates were generated with PostGIS and are also stored in the database. RGeo was used for formatting geographic data. 
 
-The heart of the project lives on map.js. The map has 3 layers: the map, the state boundaries, and the disease data. The disease data are retrieved from the backend in JSON format as randomized coordinates. Each set of randomized coordinates is linked with a year and a disease. Mapbox has a variety of tools for data representation. Here, each coordinate is expressed as type circle and each type of disease is given a unique color. For scalability, diseases with higher rates are expressed as rate per 10,000 and are given a larger radius. Most of the diseases here are expressed as rate per 100,000.
+The heart of the project lives on map.js. The map has 3 layers: the map, the state boundaries, and the disease data. The disease data are retrieved from the backend in JSON format as randomized coordinates. Each set of randomized coordinates is linked with a year and a disease. Mapbox has a variety of tools for data representation. In this project (see snippet below), each coordinate is expressed as type circle and each type of disease is given a unique color. For scalability, diseases with higher rates are expressed as rate per 10,000 and are given a larger radius. At this time, most of the diseases are expressed as rate per 100,000.
 
 ```Javascript
     map.addLayer({
@@ -59,7 +59,26 @@ The heart of the project lives on map.js. The map has 3 layers: the map, the sta
 
 ### <a id="search"></a>Filtered Search ###
 
-Viral allows users to select which diseases they are interested in seeing on the map. When the map first loads, all of the disease coordinates are retrieved from the backend. On clicking the filters button, a menu opens from the side with each disease as a checkbox item. <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/disease_array.png" width="40%" align="left" > On submit, the diseases are filtered by selected diseases and year. First, an event listener on the submit button triggers a function to create an array of selected diseases. Later on, this array will be given to a filter function. The filter function handles rendering of coordinates that match 2 criteria: 1. The set of coordinates must be linked with a disease included in this array, and 2. The coordinates must match a year.
+Viral allows users to select which diseases they are interested in seeing on the map. When the map first loads, all of the disease coordinates are retrieved from the backend. On clicking the filters button, a menu opens from the side with each disease as a checkbox item. <!-- <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/snippets/disease_array.png" width="40%" align="left" > -->On submit, the diseases are filtered by selected diseases and year. 
+
+```Javascript
+    document.getElementById('submit-filters').addEventListener('click', function (e) {
+        diseaseDisplay = [];
+        e.preventDefault();
+        const diseaseFilters = document.getElementById('disease-form').elements
+
+        for (let i = 0; i < diseaseFilters.length; i++) {
+            virus = diseaseFilters[i]
+            if (virus.value === "true") {
+                dName = virus.name.split("_").join(" ")
+                diseaseDisplay.push(dName)
+            }
+        }
+        playTimeLapse();
+    })
+```
+
+As demonstrated in the code above, first an event listener on the submit button triggers a function to create an array of selected diseases. Later on, this array will be given to a filter function. The filter function handles rendering of coordinates that match 2 criteria: 1. The set of coordinates must be linked with a disease included in this array, and 2. The coordinates must match a year.
 
 
 <img src="https://github.com/mmdurnin/Viral_JS/blob/master/app/assets/images/functionality_screenshots/gifs/v.play.gif" width="100%" align="center" >
