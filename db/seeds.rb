@@ -16,6 +16,7 @@ require 'csv'
 
 
 
+
 # States
 
 file = File.open "./data/us_states.geojson"
@@ -48,10 +49,13 @@ State.create(state_arr)
 state_keys = State.all.pluck(:id, :name) #use this for all of the following tables
 
 
+
+
 # State Populations
+
 pops_arr = []
 
-CSV.foreach(Rails.root.join('data/state_pops_1990-2019.csv'), headers: true) do |row|
+CSV.foreach(Rails.root.join('data/state_pops_1990-2022.csv'), headers: true) do |row|
     pops_hash = {}
     id = state_keys.find {|el| el[1] == row["state"]}[0]
 
@@ -80,7 +84,6 @@ end
 
 p "creating state populations"
 StatePopulation.create(pops_arr)
-
 
 
 
@@ -120,10 +123,10 @@ Disease.create(tb_arr)
 
 
 
-
 # Chlamydia
 
 ch_arr = []
+
 CSV.foreach(Rails.root.join('data/chlamydia_state_2000-2017.csv'), headers: true) do |row|
 
     disease_hash = {}
@@ -153,7 +156,12 @@ p "creating chlamydia"
 Disease.create(ch_arr)
 
 
+
+
+# Hepatitis
+
 hep_arr = []
+
 CSV.foreach(Rails.root.join('data/hepab_state_2000-2017.csv'), headers: true) do |row|
 
     disease_hash = {}
@@ -187,3 +195,45 @@ end
 
 p "creating Hepatitis"
 Disease.create(hep_arr)
+
+
+
+
+# COVID
+
+covid_arr = []
+
+CSV.foreach(Rails.root.join('data/covid_state_2020-2022.csv'), headers: true) do |row|
+
+    disease_hash = {}
+    id = state_keys.find {|el| el[1] == row["Geography"]}[0]
+
+    print row["Geography"] if id == nil
+
+    submission_date_arr = row["Submission Date"].split('/')
+
+    pop = pops_arr.find {|record| record[:state_id] == id && record[:year].to_i == submission_date_arr[2].to_i}
+    p row["Geography"] if pop == nil
+
+    disease_hash[:name] = "COVID"
+    disease_hash[:state_id] = id
+    # Date as a string ("DD/MM/YYYY")
+    disease_hash[:date] = row["Submission Date"]
+    # Date as a number (YYYY.MM.DD)
+    disease_hash[:date_number] = [submission_date_arr[2], submission_date_arr[0], submission_date_arr[1]].join('.').to_f
+    # Total number of new cases, fluctuates each day
+    disease_hash[:points] = row["New Cases"].to_i
+    # % People who were diagnosed with covid (new case) out of entire pop
+    disease_hash[:percentage] = row["New Cases"].to_f / pop.to_f * 100
+    # Rate per 100,000
+    disease_hash[:rate] = row["New Cases"].to_f / pop.to_f * 100000
+
+    json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
+    disease_hash[:geom] = json_points.values[0][0]
+
+
+    covid_arr.push(disease_hash)
+end
+
+p "creating Covid"
+Disease.create(covid_arr)
