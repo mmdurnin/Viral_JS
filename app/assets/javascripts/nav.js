@@ -35,6 +35,8 @@ function makeNav(diseaseNames) {
             `;
         }).join('');
 
+        // TODO: Use real data (COVID cuurrently stubbed)
+        // TODO: Make broad diseases disabled when covid is selected and vice versa
         const recentTrackersContent = `
             <li>
             <input type="checkbox" value="false" className="disease-input" data-index=${4} name="covid" />
@@ -42,8 +44,8 @@ function makeNav(diseaseNames) {
             </li>
         `;
 
-        const broadTrackersTitle = `<h2>2000 - 2017</h2>`;
-        const recentTrackersTitle = `<h2>2020 - 2022</h2>`;
+        const broadTrackersTitle = `<h2>Annual Data: 2000 - 2017</h2>`;
+        const recentTrackersTitle = `<h2>Daily Data: 2020 - 2022</h2>`;
 
         diseaseForm.innerHTML = [broadTrackersTitle, broadTrackersContent, '<br />', recentTrackersTitle, recentTrackersContent].join('');
 
