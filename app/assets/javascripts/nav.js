@@ -14,14 +14,14 @@ function makeNav(diseaseNames) {
 
 
 
-    const createDropDown = () => {
+    const createFilterForm = () => {
         const filterTitle = document.createElement("h3")
         filterTitle.innerHTML = "Select filters"
         nav.appendChild(filterTitle)
 
         const diseaseForm = document.createElement("form")
 
-        diseaseForm.innerHTML = diseaseNames.map((disease, i) => {
+        const broadTrackersContent = diseaseNames.map((disease, i) => {
 
             const dName = disease.name.split(" ").join("_")
             let displayName = disease.name
@@ -34,6 +34,18 @@ function makeNav(diseaseNames) {
                 </li>
             `;
         }).join('');
+
+        const recentTrackersContent = `
+            <li>
+            <input type="checkbox" value="false" className="disease-input" data-index=${4} name="covid" />
+            <label for="item4">COVID-19</label>
+            </li>
+        `;
+
+        const broadTrackersTitle = `<h2>2000 - 2017</h2>`;
+        const recentTrackersTitle = `<h2>2020 - 2022</h2>`;
+
+        diseaseForm.innerHTML = [broadTrackersTitle, broadTrackersContent, '<br />', recentTrackersTitle, recentTrackersContent].join('');
 
         const submitFilters = document.createElement("input")
         submitFilters.className = "submit-filters"
@@ -50,7 +62,7 @@ function makeNav(diseaseNames) {
 
 
 
-    createDropDown();
+    createFilterForm();
 
     const handleNav = () => {
 
