@@ -11,7 +11,7 @@ content.appendChild(p1)
 const h2 = document.createElement("h3")
 h2.innerText ="Data Representation:"
 const p2 = document.createElement("p")
-p2.innerText = "The smaller points on this map represent the rate per 100,000. In other words, in a single state the number of visible points represents the number of reported cases out of a population of 100,000. The bigger points on the map represent diseases with higher rates (i.e., number of reported cases per 10,000). For a reference to each disease representation, please see to the key (bottom right)."
+p2.innerText = "The smaller points on this map represent the rate per 100,000. The larger points on the map represent diseases with higher rates (for this, we display reported cases per 10,000). For a reference to each disease representation, please see to the key (bottom right)."
 content.appendChild(h2)
 content.appendChild(p2)
 
