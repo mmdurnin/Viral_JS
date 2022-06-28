@@ -22,7 +22,7 @@ content.appendChild(p3)
 const h3 = document.createElement("h3")
 h3.innerText = "Project Updates"
 const p4 = document.createElement("p")
-p4.innerText = "This project was created before the COVID-19 pandemic. A second view of the map is now available for viewing COVID data and is accessible from the same Filters tray."
+p4.innerText = "This project was created before the COVID-19 pandemic. A second view of the map is now available for viewing COVID data and is accessible from the same Filters tray. The COVID dataset includes new US cases per month from January 2020 - June 2022."
 content.appendChild(h3)
 content.appendChild(p4)
 
