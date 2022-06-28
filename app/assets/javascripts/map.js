@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
-
+// Draws the US map onto the page
 function decorateMap(states, map) {
     
     var hoveredStateId = null;
@@ -72,30 +72,52 @@ function decorateMap(states, map) {
         "layout": {},
         "paint": {
             "line-color": "white",
-            "line-width": 3
+            "line-width": 1
         }
     });
 
+    // Add shading to state on hover
     map.on("mousemove", "state-fills", function (e) {
         if (e.features.length > 0) {
+            // If the mouse has moved but remains on the same state, keep current state set
+            if (hoveredStateId && hoveredStateId === e.features[0].id) {
+                return;
+            }
+            // If was previously hovering over different state, unset it
             if (hoveredStateId) {
                 map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
             }
+            // Set new state being hovered over
             hoveredStateId = e.features[0].id;
             map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: true });
         }
     });
 
+    // Remove shading from state on mouse leave
     map.on("mouseleave", "state-fills", function () {
         if (hoveredStateId) {
             map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
         }
         hoveredStateId = null;
     })
+
+    // Zoom into state on click (this does not interfere with map dragging)
+    map.on("click", "state-fills", function (e) {
+        if (e.features.length > 0) {
+            let coordsArray = e.features[0].geometry.coordinates[0];
+            coordsArray = coordsArray.length === 1 ? coordsArray[0] : coordsArray;
+            const topLeftCoord = coordsArray[0];
+            const bottomRightCoord = coordsArray[Math.floor(coordsArray.length / 2)];
+            const xCoord = (topLeftCoord[0] + bottomRightCoord[0]) / 2;
+            const yCoord = (topLeftCoord[1] + bottomRightCoord[1]) / 2;
+            const center = [xCoord, yCoord]
+            map.flyTo({center, zoom:5});
+        }
+    })
 }
 
 
-
+// Prepares disease data that will populate the map when filters are set
 function populateMap(pops, map) {
 
     const json = JSON.parse(JSON.stringify(pops))
@@ -130,7 +152,8 @@ function populateMap(pops, map) {
                     'Hepatitis  A', 2,
                     'Acute Viral Hepatitis B', 2,
                     2
-            ]
+            ],
+            "circle-radius-transition": {duration: 800},
         }
     })
 
@@ -149,9 +172,9 @@ function populateMap(pops, map) {
         const diseaseFilters = document.getElementById('disease-form').elements
 
         for (let i = 0; i < diseaseFilters.length; i++) {
-            diseaseTemp = diseaseFilters[i]
-            if (diseaseTemp.value === "true") {
-                dName = diseaseTemp.name.split("_").join(" ")
+            currentDisease = diseaseFilters[i]
+            if (currentDisease.value === "true") {
+                dName = currentDisease.name.split("_").join(" ")
                 diseaseDisplay.push(dName)
             }
         }
@@ -167,40 +190,43 @@ function populateMap(pops, map) {
         diseaseArr.shift()
         diseaseArr.shift()
         diseaseArr = [];
+    }
 
+    const ticker = document.getElementById('slider');
+
+    function clearMap(){
+        ticker.value = 2000;
+        filterBy(1990, []);
     }
 
 
-    document.getElementById('slider').addEventListener('input', function (e) {
+    ticker.addEventListener('input', function (e) {
         var year = parseInt(e.target.value, 10);
         filterBy(year, diseaseDisplay);
     });
+    clearMap();
 
-    filterBy(1990, []);
-    
+    function fadeCircles() {
+        setTimeout(function() {
+            map.setPaintProperty('pop-points', 'circle-opacity', 1);
+        }, 100);
+        setTimeout(function () {
+            map.setPaintProperty('pop-points', 'circle-opacity', .6);
+        }, 500);
+    }
 
     
     function playTimeLapse() {
         let ticker_pop = 2000; 
         const keepSpreading = setInterval(function () {
-            const ticker = document.getElementById('slider');
             ticker_pop += 1
             fadeCircles();
             filterBy(ticker_pop, diseaseDisplay);
             ticker.stepUp();
             if (ticker_pop >= 2017) {
                 clearInterval(keepSpreading)
-                ticker.value = 2017
+                clearMap();
             }
-        }, 500);
-    }
-
-    function fadeCircles() {
-        setTimeout(function() {
-            map.setPaintProperty('pop-points', 'circle-opacity', 1)
-        }, 100);
-        setTimeout(function () {
-            map.setPaintProperty('pop-points', 'circle-opacity', .6)
         }, 500);
     }
 }
