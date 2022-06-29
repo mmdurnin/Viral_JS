@@ -21,9 +21,7 @@ function makeNav(diseaseNames) {
 
         const diseaseForm = document.createElement("form")
 
-        const annualDiseases = diseaseNames.filter(({name}) => name !== "COVID"); 
-
-        const broadTrackersContent = annualDiseases.map((disease, i) => {
+        diseaseForm.innerHTML = diseaseNames.map((disease, i) => {
 
             const dName = disease.name.split(" ").join("_")
             let displayName = disease.name
@@ -31,26 +29,11 @@ function makeNav(diseaseNames) {
             if (displayName === "chlamydia") displayName = "Chlamydia"
             return `
                 <li>
-                <input type="checkbox" value="false" class="disease-input, annual" data-index=${i} name=${dName} />
+                <input type="radio" value="false" class="disease-input, annual" data-name=${dName} data-index=${i} name="disease-filter" />
                 <label for="item${i}">${displayName}</label>
                 </li>
             `;
         }).join('');
-
-        const nextIndex = annualDiseases.length;
-
-        // TODO: Make broad diseases disabled when covid is selected and vice versa
-        const recentTrackersContent = `
-            <li>
-            <input type="checkbox" value="false" class="disease-input, monthly" data-index=${nextIndex} name="covid" />
-            <label for="item${nextIndex}">COVID-19</label>
-            </li>
-        `;
-
-        const broadTrackersTitle = `<h2>Annual Data: 2000 - 2017</h2>`;
-        const recentTrackersTitle = `<h2>Monthly Data: 2020 - 2022</h2>`;
-
-        diseaseForm.innerHTML = [broadTrackersTitle, broadTrackersContent, '<br />', recentTrackersTitle, recentTrackersContent].join('');
 
         const submitFilters = document.createElement("input")
         submitFilters.className = "submit-filters"
