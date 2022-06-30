@@ -17,6 +17,7 @@
  *= nav
  *= key
  *= info
+ *= loader
  *= require_tree .
  *= require_self
  */

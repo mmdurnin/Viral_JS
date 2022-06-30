@@ -91,6 +91,7 @@ function decorateMap(states, map) {
     if (isLoading) {
         document.getElementById("nav-button").style.cursor = "wait";
         document.getElementById("nav-button").disabled = true;
+        document.getElementById("loader").style.display = "flex";
         console.log('Loading...')
     }
 
@@ -183,6 +184,7 @@ function populateMap(pops, map) {
     console.log("Finished loading")
     document.getElementById("nav-button").style.cursor = "pointer";
     document.getElementById('nav-button').disabled = false;
+    document.getElementById("loader").style.display = "none";
 
     const json = JSON.parse(JSON.stringify(pops))
     const annualSlider = document.getElementById('slider-annual');
