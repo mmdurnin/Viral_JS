@@ -22,7 +22,7 @@
     }
     .hepA-key::before {
         content: "\2022";
-        color: #e55e5e;
+        color: rgb(123,203,162);
         font-weight: bold;
         display: inline-block;
         margin: 0 3px;
@@ -30,7 +30,15 @@
 
     .chlamydia-key::before {
         content: "\2022";
-        color: #3bb2d0;
+        color: rgb(255,165,121);
+        font-weight: bold;
+        display: inline-block;
+        margin: 0 3px;
+    }
+
+    .covid-key::before {
+        content: "\2022";
+        color: rgb(142,8,60);
         font-weight: bold;
         display: inline-block;
         margin: 0 3px;
@@ -38,7 +46,7 @@
 
     .hepB-key::before {
         content: "\2022";
-        color: #223b53;
+        color: rgb(14,88,97);
         font-weight: bold;
         display: inline-block;
         margin: 0 3px;
@@ -46,7 +54,7 @@
 
     .tb-key::before {
         content: "\2022";
-        color: #fbb03b;
+        color: rgb(168,144,227);
         font-weight: bold;
         display: inline-block;
         margin: 0 3px;

@@ -11,7 +11,7 @@ content.appendChild(p1)
 const h2 = document.createElement("h3")
 h2.innerText ="Data Representation"
 const p2 = document.createElement("p")
-p2.innerText = "The smaller points on this map represent the rate per 100,000. The larger points on the map represent diseases with higher rates, for which we display reported cases per 10,000. For a reference to each disease representation, please see to the key (bottom right)."
+p2.innerText = "Diseases with a higher morbidity are expressed in rate per 10,000. Diseases with a lower morbidity are expressed in rate per 100,000."
 content.appendChild(h2)
 content.appendChild(p2)
 
@@ -22,7 +22,7 @@ content.appendChild(p3)
 const h3 = document.createElement("h3")
 h3.innerText = "Project Updates"
 const p4 = document.createElement("p")
-p4.innerText = "This project was created before the COVID-19 pandemic. A second view of the map is now available for viewing COVID data and is accessible from the same Filters tray. The COVID dataset includes new US cases per month from January 2020 - June 2022."
+p4.innerText = "This project was created before the COVID-19 pandemic. A second version of the project has since been released which incorporates COVID data. The COVID display is accessible from the same Filters tray. The COVID dataset includes new US cases per month from January 2020 - June 2022."
 content.appendChild(h3)
 content.appendChild(p4)
 

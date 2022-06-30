@@ -14,11 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     hepA.className = "hepA-key"
     items.appendChild(hepA)
 
-    const chlamydia = document.createElement("li")
-    chlamydia.innerHTML = "Chlamydia • Rate per 10,000"
-    chlamydia.className = "chlamydia-key"
-    items.appendChild(chlamydia)
-
     const hepB = document.createElement("li")
     hepB.innerHTML = "Hepatitis B • Rate per 100,000"
     hepB.className = "hepB-key"
@@ -28,6 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
     tb.innerHTML = "Tuberculosis • Rate per 100,000"
     tb.className = 'tb-key'
     items.appendChild(tb)
+
+    const chlamydia = document.createElement("li")
+    chlamydia.innerHTML = "Chlamydia • Rate per 10,000"
+    chlamydia.className = "chlamydia-key"
+    items.appendChild(chlamydia)
+
+    const covid = document.createElement("li")
+    covid.innerHTML = "COVID-19 • Rate per 10,000 [Monthly]"
+    covid.className = "covid-key"
+    items.appendChild(covid)
 
     key.appendChild(items)
 
