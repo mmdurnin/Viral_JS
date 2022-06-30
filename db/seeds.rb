@@ -15,7 +15,29 @@ require 'rgeo/geo_json'
 require 'csv'
 require 'date'
 
+def create_new_covid_entry(current)
+    res = []
+    # load up disease_hash with previous montth's values
+    disease_hash = {}
+    disease_hash[:name] = "COVID"
+    disease_hash[:state_id] = current[:state_id]
+    disease_hash[:submission_date] = Time.new(current[:year], current[:month]).to_datetime
+    # rate per 10,000
+    disease_hash[:rate] = current[:sum] / current[:pop] * 10000 
 
+    num_points = disease_hash[:rate].round
+    disease_hash[:points] = num_points
+    json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{current[:state_id]};")
+    disease_hash[:geom] = json_points.values[0][0]
+
+    # We configured our db in a way that assumes state-year-disease shuld be a unique trio. This does not support our
+    # COVID data, which is much more granular (monthly). For ease, we'll stick a unique year value here
+    # even though in reality, this value is composed of year-month (ex: "01/31/2022" => 202201)
+    disease_hash[:year] = (current[:year] + current[:month]).to_i
+
+    res.push(disease_hash)
+    return res
+end 
 
 
 # States
@@ -203,44 +225,45 @@ Disease.create(hep_arr)
 # COVID
 
 # current_month_year is a hash we hold to roll up days into months & reduuce amount of data ultimately sent to the FE
-current_month_year = {state: "Alaska", month: "01", year: "2020", sum: 0}
+current_month_year = {state: "", state_id: "", month: "", year: "", sum: 0, pop: 0}
 covid_arr = []
 
 CSV.foreach(Rails.root.join('data/covid_state_2020-2022.csv'), headers: true) do |row|
-    submission_date_arr = row["Submission Date"].split('/')
-    year = submission_date_arr[2]
-    month = submission_date_arr[0]
-    day = submission_date_arr[1]
-    state = row["Geography"]
     new_cases = row["New Cases"]
 
-    id = state_keys.find {|el| el[1] == state}[0]
-    print state if id == nil
 
-    pop = pops_arr.find {|record| record[:state_id] == id && record[:year].to_i == year.to_i}
-    p state if pop == nil
 
-    if month != current_month_year[:month] || year != current_month_year[:year] || state != current_month_year[:state]
+    if row["Geography"] == "Wyoming" && row["Submission Date"] == "06/26/2022"
+        # If this is the last row, push values into covid arr
+        # ****NOTE: this is hacky (relying on hard code values), will break if we add more data****
+        covid_arr.push(create_new_covid_entry(current_month_year))
+
+    elsif row["Submission Date"].split('/')[0] != current_month_year[:month] || row["Geography"] != current_month_year[:state]
         # if we've hit a new month or a new state, reset everything and add our current totals to covid_arr
-        disease_hash = {}
-        disease_hash[:name] = "COVID"
-        disease_hash[:state_id] = id
-        disease_hash[:submission_date] = Time.new(year, month).to_datetime
-        # rate per 10,000
-        disease_hash[:rate] = current_month_year[:sum] / pop[:population].to_f * 10000 
 
-        # We configured our db in a way that assumes state-year-disease shuld be a unique trio. This does not support our
-        # COVID data, which is much more granular (monthly). For ease, we'll stick a unique year value here
-        # even though in reality, this value is composed of year-month (ex: "01/31/2022" => 202201)
-        disease_hash[:year] = (year + month).to_i
+        # If it's the first month, we won't have any info from the previous month. Only create diseases_hash if there's a previous montth
+        if current_month_year[:month] != ""
+            covid_arr.push(create_new_covid_entry(current_month_year))
+        end
 
-        num_points = disease_hash[:rate].round
-        disease_hash[:points] = num_points
-        json_points = ActiveRecord::Base.connection.execute("SELECT ST_GeneratePoints(geom, #{num_points}) FROM states WHERE id = #{id};")
-        disease_hash[:geom] = json_points.values[0][0]
+        # Get new state
+        new_state = row["Geography"]
 
-        covid_arr.push(disease_hash)
-        current_month_year = {state: state, month: month, year: year, sum: new_cases.to_f}
+        # Get id for new state
+        new_id = state_keys.find {|el| el[1] == new_state}[0]
+        print new_state if new_id == nil
+
+        # Get new dates
+        submission_date_arr = row["Submission Date"].split('/')
+        new_year = submission_date_arr[2]
+        new_month = submission_date_arr[0]
+        new_day = submission_date_arr[1]
+
+        # Get population for new state/year
+        new_pop = pops_arr.find {|record| record[:state_id] == new_id && record[:year].to_i == new_year.to_i}
+        p new_state if new_pop == nil
+
+        current_month_year = {state: new_state, state_id: new_id, month: new_month, year: new_year, sum: new_cases.to_f, pop: new_pop[:population].to_f}
     else
         # otherwise, add current day total to our sum
         current_month_year[:sum] += new_cases.to_f
