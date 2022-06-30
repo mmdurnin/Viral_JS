@@ -1,18 +1,36 @@
 // TODO: Create loading state
 let isLoading = true;
 
-const END_RADIUS = 50;
+const END_RADIUS = 100;
 const RADIUS_STEP = .25;
 const START_OPACITY = 1;
 const END_OPACITY = 0;
 const OPACITY_STEP = .02;
+
+const ANNUAL_DISEASES = new Set(['tb', 'chlamydia', 'Hepatitis  A', 'Acute Viral Hepatitis B']);
+const MONTHLY_DISEASES = new Set(['COVID'])
+
+const MONTH_MAP = {
+  01: "Jan.",
+  02: "Feb.",
+  03: "March",
+  04: "April",
+  05: "May",
+  06: "June",
+  07: "July",
+  08: "Aug.",
+  09: "Sep.",
+  10: "Oct.",
+  11: "Nov.",
+  12: "Dec."
+}
 
 const COLOR_MAP = {
     tb: ['rgb(232,213,247)', 'rgb(168,144,227)', 'rgb(161,122,228)'],
     chlamydia: ['rgb(253,194,133)', 'rgb(255,165,121)', 'rgb(249,137,118)'],
     'Hepatitis  A': ['rgb(210,241,163)', 'rgb(184,229,165)', 'rgb(123,203,162)', 'rgb(70,174,159)'],
     'Acute Viral Hepatitis B': ['rgb(31,122,121)', 'rgb(14,88,97)', 'rgb(7,64,81)'],
-    COVID: ['#ccc'],
+    COVID: ['rgb(88,21,69)', 'rgb(142,8,60)', 'rgb(195,1,51)'],
 
 }
 const RADIUS_MAP = {
@@ -167,7 +185,10 @@ function populateMap(pops, map) {
     document.getElementById('nav-button').disabled = false;
 
     const json = JSON.parse(JSON.stringify(pops))
-    const ticker = document.getElementById('slider');
+    const annualSlider = document.getElementById('slider-annual');
+    const annualCounter = document.getElementById('counter-annual');
+    const monthlySlider = document.getElementById('slider-monthly')
+    const monthlyCounter = document.getElementById('counter-monthly')
     let selectedDisease = null;
 
     map.addSource("disease_pops", {
@@ -178,6 +199,7 @@ function populateMap(pops, map) {
     function fadeCircles(layerId, startingRadius) {
         let currentRadius = startingRadius;
         let currentOpacity = START_OPACITY;
+
         function expandRadius() {
             currentRadius+= RADIUS_STEP;
             currentOpacity-= OPACITY_STEP;
@@ -200,10 +222,10 @@ function populateMap(pops, map) {
     }
 
     function addFilteredLayer(year) {
+        if (selectedDisease === null) return
+
         const id = `pop-points-${year}`
         const radius = getRadius(selectedDisease)
-
-        if (selectedDisease === null) return
 
         map.addLayer({
             id,
@@ -225,18 +247,49 @@ function populateMap(pops, map) {
         fadeCircles(id, radius)
     }
 
-    // Advance ticker on an automatic timelapse
-    function playTimeLapse() {
-        let tickerPop = 2000; 
+    function advanceMonthlyValue (inputValue) {
+        const typesafeInputValue = Number(inputValue);
+        if (MONTHLY_DISEASES.has(selectedDisease) && Number.isInteger(typesafeInputValue)) {
+            const currentRawMonth = MONTHS[typesafeInputValue];
+            const [year, month] = currentRawMonth.toString().split('.');
+            const formattedMonth = `${MONTH_MAP[Number(month)]} ${year}`;
+            const dataKey = Number([year,month].join(''));
+
+            monthlyCounter.innerHTML = formattedMonth;
+            addFilteredLayer(dataKey);
+        }
+    }
+
+    function advanceAnnualValue (inputValue) {
+        const typesafeInputValue = Number(inputValue);
+        if (ANNUAL_DISEASES.has(selectedDisease) && Number.isInteger(typesafeInputValue)) {
+            annualCounter.innerHTML = inputValue;
+            addFilteredLayer(typesafeInputValue);
+        }
+    }
+
+    // Advance slider on an automatic timelapse
+    function playMonthlyTimelapse() {
         const keepSpreading = setInterval(function () {
-            tickerPop += 1
-            addFilteredLayer(tickerPop);
-            ticker.stepUp();
-            if (tickerPop >= 2017) {
-                clearInterval(keepSpreading)
-                ticker.value = 2000;
+            monthlySlider.stepUp();
+            advanceMonthlyValue(monthlySlider.value);
+            if (Number(monthlySlider.value) >= Number(monthlySlider.max)) {
+                clearInterval(keepSpreading);
+                monthlySlider.value = 0;
+                monthlyCounter.innerHTML = "Jan. 2020";
             }
-        }, 500);
+        }, 100);
+    }
+    function playAnnualTimelapse() {
+        const keepSpreading = setInterval(function () {
+            annualSlider.stepUp();
+            advanceAnnualValue(annualSlider.value);
+            if (annualSlider.value >= annualSlider.max) {
+                clearInterval(keepSpreading);
+                annualSlider.value = 2000;
+                annualCounter.innerHTML = 2000;
+            }
+        }, 100);
     }
 
     // Handle checking filters off/on
@@ -252,16 +305,28 @@ function populateMap(pops, map) {
     // Handle filter submission
     document.getElementById('submit-filters').addEventListener('click', function (e) {
         e.preventDefault();
+        if (MONTHLY_DISEASES.has(selectedDisease)) {
+            document.getElementById("time-box-annual").style.visibility = "hidden";
+            document.getElementById("time-box-monthly").style.visibility = "visible";
+            playMonthlyTimelapse();
 
-        if (selectedDisease) {
-            playTimeLapse(); 
+            // Handle cases where slider is manually moved
+            monthlySlider.addEventListener('input', function (e) {
+                advanceMonthlyValue(e.target.value);
+            })
+        }
+        if (ANNUAL_DISEASES.has(selectedDisease)) {
+            document.getElementById("time-box-monthly").style.visibility = "hidden";
+            document.getElementById("time-box-annual").style.visibility = "visible";
+            playAnnualTimelapse(); 
+
+            // Handle cases where slider is manually moved
+            annualSlider.addEventListener('input', function (e) {
+                advanceAnnualValue(e.target.value);
+            });
         }
     })
 
-    // Handle cases where ticker is manually moved
-    ticker.addEventListener('input', function (e) {
-        var year = parseInt(e.target.value, 10);
-        addFilteredLayer(year);
-    });
+
 }
 

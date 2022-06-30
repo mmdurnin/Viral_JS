@@ -1,5 +1,7 @@
 @import 'base';
 
+$ocean: rgb(10,0,38);
+
 @media only screen and (max-width: 750px)  {
   .time-label {
     display: none !important;
@@ -13,61 +15,76 @@
 }
 
 .time-box {
-    position: absolute;
-    bottom: 20px;
-    left: 30px;
-    height: 90px;
-    width: 70vw;
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  height: 90px;
+  width: 20vw;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
-    box-shadow: 0 0 1px rgba(34, 25, 25, 0.4);
-    border-radius: 2px;
-    background: $vanilla;
-    z-index: 2;
+  padding: 12px;
+  z-index: 2;
 }
 
-.time-box h3 {
-  // display: inline-block;
-  text-align: center;
-  margin: 0;
-  font-family: $curvy-font;
+.slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.counter {
+  font-family: $big-font;
+  color: $vanilla;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  background: $vanilla;
+  height: 2px;
+}
+
+input[type=range]::-moz-range-track {
+  -moz-appearance: none;
+  background: $vanilla;
+  height: 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 2px solid;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  max-width: 80px;
+  position: relative;
+  bottom: 11px;
+  border-color: $vanilla;
+  background-color: $ocean;
+  cursor: -webkit-grab;
+
+  -webkit-transition: border 1000ms ease;
+  transition: border 1000ms ease;
+}
+
+input[type=range]::-moz-range-thumb {
+  -moz-appearance: none;
+  border: 2px solid;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  max-width: 80px;
+  position: relative;
+  bottom: 11px;
+  border-color: $vanilla;
+  background-color: $ocean;
+  cursor: -moz-grab;
+  -moz-transition: border 1000ms ease;
+  transition: border 1000ms ease;
 }
 
 #time-box-monthly {
   visibility: hidden;
-}
-
-.row {
-    height: fit-content;
-    width: 100%;
-}
-
-.phase-container {
-    display: flex;
-    flex-direction: row;
-}
-
-.time-label {
-  width: 15%;
-  display: inline-block;
-  text-align: center;
-  font-family: $small-font;
-  font-size: 18px;
-}
-
-.color {
-  background: linear-gradient(to right, rgb(223, 223, 219), rgb(173,193,217), rgb(190, 190, 206), rgb(223, 223, 219), rgb(173,193,217), rgb(190, 190, 206));
-  margin-bottom: 5px;
-}
-
-#slider {
-  width: 95%;
-  border-color: transparent;
-  color: transparent;
-  -webkit-appearance: none;
-  box-shadow: none;
-  border: none;
 }

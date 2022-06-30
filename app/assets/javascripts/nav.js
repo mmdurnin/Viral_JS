@@ -8,7 +8,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function makeNav(diseaseNames) {
-    const nav_container = document.querySelector('.nav')
     const button = document.getElementById('nav-button')
     const nav = document.getElementById('nav')
 
