@@ -31,4 +31,4 @@ test:
 
 production:
   adapter: postgis
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL_POSTGIS'] %>
