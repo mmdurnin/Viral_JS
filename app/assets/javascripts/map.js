@@ -224,10 +224,15 @@ function populateMap(pops, map) {
     }
 
     function addFilteredLayer(year) {
-        if (selectedDisease === null) return
+        if (selectedDisease === null) return;
 
-        const id = `pop-points-${year}`
-        const radius = getRadius(selectedDisease)
+        const id = `pop-points-${year}`;
+        const radius = getRadius(selectedDisease);
+
+        if(!!map.getLayer(id)) {
+            fadeCircles(id, radius);
+            return;
+        }
 
         map.addLayer({
             id,
