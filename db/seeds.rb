@@ -226,7 +226,8 @@ CSV.foreach(Rails.root.join('data/covid_state_2020-2022.csv'), headers: true) do
         disease_hash[:name] = "COVID"
         disease_hash[:state_id] = id
         disease_hash[:submission_date] = Time.new(year, month).to_datetime
-        disease_hash[:rate] = current_month_year[:sum] / pop[:population].to_f * 100000
+        # rate per 10,000
+        disease_hash[:rate] = current_month_year[:sum] / pop[:population].to_f * 10000 
 
         # We configured our db in a way that assumes state-year-disease shuld be a unique trio. This does not support our
         # COVID data, which is much more granular (monthly). For ease, we'll stick a unique year value here
@@ -249,5 +250,4 @@ CSV.foreach(Rails.root.join('data/covid_state_2020-2022.csv'), headers: true) do
 end
 
 p "creating Covid"
-p covid_arr
 Disease.create(covid_arr)
