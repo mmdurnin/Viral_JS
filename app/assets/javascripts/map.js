@@ -38,7 +38,7 @@ const RADIUS_MAP = {
     chlamydia: [2,3,4],
     'Hepatitis  A': [1,2,3],
     'Acute Viral Hepatitis B': [1,2,3],
-    COVID: [1,2,3],
+    COVID: [2,3,4],
 }
 
 function getColor(diseaseName) {
@@ -297,10 +297,10 @@ function populateMap(pops, map) {
     // Handle checking filters off/on
     document.getElementById('disease-form').addEventListener("change", function (e) {
         if (e.target.checked === true) {
-            selectedDisease = e.target.dataset.name.split("_").join(" ")
-            e.target.value = true
+            selectedDisease = e.target.dataset.name.split("_").join(" ");
+            e.target.value = true;
         } else {
-            e.target.value = false
+            e.target.value = false;
         }
     });
 

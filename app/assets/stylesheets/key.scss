@@ -9,7 +9,6 @@
     height: fit-content;
     width: fit-content;
 
-    border: double $bavarian-forest;
     background: rgba(255, 255, 255, 0.8);
 
     h1 {
@@ -18,7 +17,6 @@
     }
 
     li {
-        // padding: .02rem;
         font-family: $plain-font;
         font-size: 18px;
     }
@@ -72,20 +70,23 @@
 
     #key-button {
         position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         z-index: 3;
 
         padding: .5em;
         height: fit-content;
         width: fit-content;
         bottom: 20px;
-        right: 20px;
+        right: 30px;
 
-        background-color: $bavarian-forest;
-        color: white;
-        font-family: $big-font;
-        font-size: 18px;
-        font-weight: 600;
+        border: 2px solid white;
         border-radius: 3px;
+
+        font-family: $big-font;
+        background: rgba(255, 255, 255, 0.8);
 
         &:hover {
             cursor: pointer;

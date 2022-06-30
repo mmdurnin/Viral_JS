@@ -89,7 +89,11 @@
     font-family: $curvy-font;
     font-size: 18px;
     font-weight: 1000;
-    box-shadow: 0 1px #FFFFFF inset, 0 0px 5px rgba(34, 25, 25, 0.2);
+    
+    border-style: none;
+    -webkit-box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.23);
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.23) !important;
 }
 
 .submit-filters:hover {
