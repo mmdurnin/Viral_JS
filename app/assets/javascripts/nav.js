@@ -8,13 +8,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function makeNav(diseaseNames) {
-    const nav_container = document.querySelector('.nav')
     const button = document.getElementById('nav-button')
     const nav = document.getElementById('nav')
 
 
 
-    const createDropDown = () => {
+    const createFilterForm = () => {
         const filterTitle = document.createElement("h3")
         filterTitle.innerHTML = "Select filters"
         nav.appendChild(filterTitle)
@@ -29,7 +28,7 @@ function makeNav(diseaseNames) {
             if (displayName === "chlamydia") displayName = "Chlamydia"
             return `
                 <li>
-                <input type="checkbox" value="false" className="disease-input" data-index=${i} name=${dName} />
+                <input type="radio" value="false" class="disease-input, annual" data-name=${dName} data-index=${i} name="disease-filter" />
                 <label for="item${i}">${displayName}</label>
                 </li>
             `;
@@ -50,7 +49,7 @@ function makeNav(diseaseNames) {
 
 
 
-    createDropDown();
+    createFilterForm();
 
     const handleNav = () => {
 

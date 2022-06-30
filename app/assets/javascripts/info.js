@@ -5,13 +5,13 @@ title.innerText = "Welcome to Viral!"
 content.appendChild(title)
 
 const p1 = document.createElement("p")
-p1.innerText = "Viral is a data visualization tool for viewing annual disease trends from state-to-state."
+p1.innerText = "Viral is a data visualization tool for viewing disease trends from state-to-state."
 content.appendChild(p1)
 
 const h2 = document.createElement("h3")
-h2.innerText ="Data Representation:"
+h2.innerText ="Data Representation"
 const p2 = document.createElement("p")
-p2.innerText = "The smaller points on this map represent the rate per 100,000. In other words, in a single state the number of visible points represents the number of reported cases out of a population of 100,000. The bigger points on the map represent diseases with higher rates (i.e., number of reported cases per 10,000). For a reference to each disease representation, please see to the key (bottom right)."
+p2.innerText = "Diseases with a higher morbidity are expressed in rate per 10,000. Diseases with a lower morbidity are expressed in rate per 100,000."
 content.appendChild(h2)
 content.appendChild(p2)
 
@@ -19,18 +19,41 @@ const p3 = document.createElement("p")
 p3.innerText = "Due to limited access to county-specific morbidity data, the points on the map are randomized within state boundaries. Points for this visualization were favored to color shading - the points on the map are meant to symbolize the spread of germs."
 content.appendChild(p3)
 
+const h3 = document.createElement("h3")
+h3.innerText = "Project Updates"
+const p4 = document.createElement("p")
+p4.innerText = "This project was created before the COVID-19 pandemic. A second version of the project has since been released which incorporates COVID data. The COVID display is accessible from the same Filters tray. The COVID dataset includes new US cases per month from January 2020 - June 2022."
+content.appendChild(h3)
+content.appendChild(p4)
+
 const h4 = document.createElement("h3")
 h4.innerText = "Sources:"
-const p4 = document.createElement("p")
-p4.innerText = "The data for this project were collected from the World Health Organization."
+const p5 = document.createElement("p")
+p5.innerText = "The data for this project were collected from the World Health Organization and the Centers for Disease Control and Prevention."
 content.appendChild(h4)
-content.appendChild(p4)
+content.appendChild(p5)
 
 const who = document.createElement("a");
 who.href = "https://www.who.int/"
 who.innerHTML = "Visit WHO website"
 who.target = "_blank"
 content.appendChild(who)
+
+content.appendChild(document.createElement("br"))
+
+const cdc = document.createElement("a");
+cdc.href = "https://gis.cdc.gov/grasp/nchhstpatlas/tables.html"
+cdc.innerHTML = "Visit CDC website"
+cdc.target = "_blank"
+content.appendChild(cdc)
+
+content.appendChild(document.createElement("br"))
+
+const cdcCovid = document.createElement("a");
+cdcCovid.href = "https://gis.cdc.gov/grasp/nchhstpatlas/tables.html"
+cdcCovid.innerHTML = "Visit CDC COVID tracking database"
+cdcCovid.target = "_blank"
+content.appendChild(cdcCovid)
 
 
 window.addEventListener("DOMContentLoaded", () => {
